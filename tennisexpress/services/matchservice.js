@@ -10,7 +10,7 @@ var requestOptions = {
 };
 
 
-const matchdata = {
+const tournament = {
     "tournament": "WTA",
     "country": "Singapore",
     "matches": [
@@ -41,7 +41,7 @@ class MatchService {
     async getMatches() {
 
         return new Promise((resolve) => {
-            const obj = matchdata;
+            const obj = tournament;
             resolve(obj);
         });
     }

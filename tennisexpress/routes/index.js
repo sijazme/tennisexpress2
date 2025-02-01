@@ -9,14 +9,22 @@ const service1 = require("../services/MatchService");
 router.get('/', async function (req, res) {
 
 
-    var matchlist = null;
+    var tournament = null;
 
     service1.getMatches()
         .then(result => {
-            matchlist = result;
-            console.log(matchlist);            
-            res.render('index',matchlist);
-            
+            tournament = result;
+
+            if (!tournament.matches?.length) {
+
+                console.log("no matches found");
+                
+            }
+            else {
+                console.log('matches len = ' + tournament.matches.length);
+                console.log(tournament);
+                res.render('index', { 'matchdata': tournament.matches });
+            }
             
         })
         .catch(error => {

@@ -1,6 +1,9 @@
 extends layout
 
 block content
-  h1= title
+  h1= 'EXPRESS APP'
   p Welcome to #{title}
   p This is a paragraph.
+  ul
+  each val in matchdata
+    li= val.player1
