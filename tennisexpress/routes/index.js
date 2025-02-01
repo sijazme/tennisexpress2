@@ -21,8 +21,7 @@ router.get('/', async function (req, res) {
                 
             }
             else {
-                console.log(tournaments[0]);
-                console.log(tournaments[1]);
+                
                 res.render("index", { 'tournaments': tournaments });
             }
             

@@ -6,9 +6,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var fetch = require('node-fetch');
+var jsonQuery = require('json-query');
 
 var app = express();
 
