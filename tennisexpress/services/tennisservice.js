@@ -1,6 +1,8 @@
+const UPCOMING = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
+const INPLAY = "https://api.b365api.com/v3/events/inplay?sport_id=13&token=212610-grkv7alAClZ83h";
 
+const SPORTSID = 13;
 
-var urlUpcoming = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
 
 var myHeaders = new Headers();
 myHeaders.append("token", "212610-grkv7alAClZ83h");
@@ -45,12 +47,11 @@ function getJsonData(jsArray) {
     return JSON.parse(JSON.stringify(jsArray));    
 }
 
-async function getData(id) {
+async function getData(url, id) {
         
     var jsonArrLine = [];
     var jsonArray = [];
-
-    const url = urlUpcoming;
+    
     var requestOptions = {
         method: 'GET',
         redirect: 'follow',
@@ -116,8 +117,10 @@ class TennisService {
     async getTournaments() {
 
         return new Promise((resolve) => {
-            var upcomingEvents = getData(13); // tennis sportsId is 13
-            resolve(upcomingEvents);
+
+            var url = INPLAY;
+            var events = getData(url, SPORTSID); // tennis sportsId is 13
+            resolve(events);
         });
     }
 }
