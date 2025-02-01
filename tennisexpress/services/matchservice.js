@@ -11,7 +11,7 @@ var requestOptions = {
 
 
 const tournament = {
-    "tournament": "WTA",
+    "name": "WTA",
     "country": "Singapore",
     "matches": [
         {

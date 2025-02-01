@@ -21,9 +21,8 @@ router.get('/', async function (req, res) {
                 
             }
             else {
-                console.log('matches len = ' + tournament.matches.length);
                 console.log(tournament);
-                res.render('index', { 'matchdata': tournament.matches });
+                res.render("index", { 'tournament': tournament });
             }
             
         })

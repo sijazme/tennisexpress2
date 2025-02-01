@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1= 'EXPRESS APP'
+  h1= 'TENNIS EXPRESS'
   p Welcome to #{title}
-  p This is a paragraph.
+  p #{tournament.name} #{tournament.country}
   ul
-  each val in matchdata
-    li= val.player1
+  each val in tournament.matches
+    li= val.player1 + '  ' + val.player2
