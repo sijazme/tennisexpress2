@@ -2,32 +2,34 @@
 var express = require('express');
 var router = express.Router();
 
-const service1 = require("../services/MatchService");
+const service1 = require("../services/TennisService");
 
 
 /* GET home page. */
 router.get('/', async function (req, res) {
 
 
-    var tournament = null;
+    var tournaments = {};
 
-    service1.getMatches()
+    service1.getTournaments()
         .then(result => {
-            tournament = result;
+            tournaments = result;
 
-            if (!tournament.matches?.length) {
+            if (!tournaments?.length) {
 
-                console.log("no matches found");
+                console.log("no tournaments found");
                 
             }
             else {
-                console.log(tournament);
-                res.render("index", { 'tournament': tournament });
+                console.log(tournaments[0]);
+                console.log(tournaments[1]);
+                res.render("index", { 'tournaments': tournaments });
             }
             
         })
         .catch(error => {
             console.log(error);
+            res.render("index", { 'tournaments': tournaments });
             //handle any errors here
         }); 
 
