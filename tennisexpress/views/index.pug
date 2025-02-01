@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1= 'TENNIS EXPRESS'
-  
+  p TENNIS EXPRESS
+  img(src='../images/tennis.jpg' , alt='tennis racket') 
   each t in tournaments      
    ul
     li= t["tournament"] +  ' ' + t["player1"] +  ' vs ' + t["player2"] + ' ' + t["time"] 

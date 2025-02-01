@@ -10,6 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="public\javascripts\" />
-    <Folder Include="public\images\" />
   </ItemGroup>
 </Project>

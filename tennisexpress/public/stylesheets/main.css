@@ -14,22 +14,37 @@ a {
 li {
     font-family: Consolas;
     font-size: larger;
+    font-weight: bold;
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 40px;
     border: 1px solid grey;
     width: 600px;
     margin-bottom: 10px;
     line-height: 45px;
     color:white;
-    background-color: maroon;
+    background-color: darkgreen;
 }
 
 li:first-child {
     margin-top: 0;
+    
 }
 
-.badge
-{
-    font-weight:bold;
-    color:blue;
+.badge {
+    font-weight: bold;
+    color: blue;    
+}
+
+img {
+    height: 200px;
+    width: 280px;
+    margin-left: 70px;
+    border: 1px solid white;
+}
+
+
+p {
+    font-family: Consolas;
+    font-size: 24px;
+    margin-left: 70px;
 }
