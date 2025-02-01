@@ -1,0 +1,47 @@
+[
+    {
+        "name": "WTA",
+        "country": "Singapore",
+        "matches": [
+            {
+                "player1": "Tatjana Maria",
+                "player2": "Elise Merterns",
+            },
+            {
+                "player1": "Maria Sakkari",
+                "player2": "Xinyu Wang",
+            },
+            {
+                "player1": "Simona Waltert",
+                "player2": "Mananchaya Sawangkaew",
+            },
+            {
+                "player1": "Ann Li",
+                "player2": "C Busca",
+            }
+        ]
+    },
+
+    {
+        "name": "WTA",
+        "country": "Linz",
+        "matches": [
+            {
+                "player1": "Aryna Sabalenka",
+                "player2": "Coco Gauff",
+            },
+            {
+                "player1": "Elena Rybakina",
+                "player2": "Jessica Pegula",
+            },
+            {
+                "player1": "Daria Kasatkina",
+                "player2": "Danielle Collins",
+            },
+            {
+                "player1": "Mirra Andreeva",
+                "player2": "Elina Svitolina",
+            }
+        ]
+    }
+]

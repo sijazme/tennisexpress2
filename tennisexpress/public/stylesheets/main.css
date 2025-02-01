@@ -4,9 +4,32 @@ body {
     font-size: 11px;
     color:white;
     background-color: black;
+
 }
 
 a {
-    color: #00B7FF;
-    
+    color: #00B7FF;    
+}
+
+li {
+    font-family: Consolas;
+    font-size: larger;
+    margin-top: 10px;
+    margin-left: 20px;
+    border: 1px solid grey;
+    width: 600px;
+    margin-bottom: 10px;
+    line-height: 45px;
+    color:white;
+    background-color: maroon;
+}
+
+li:first-child {
+    margin-top: 0;
+}
+
+.badge
+{
+    font-weight:bold;
+    color:blue;
 }

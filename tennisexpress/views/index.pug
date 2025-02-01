@@ -2,11 +2,8 @@ extends layout
 
 block content
   h1= 'TENNIS EXPRESS'
-  p Welcome to #{title}
   
-  
-  each t in tournaments    
-    p #{t.name} #{t.country}
-     each match in t.matches
-      ul
-       li= match.player1 + '  ' + match.player2
+  each t in tournaments      
+   ul
+    li= t["tournament"] +  ' ' + t["player1"] +  ' vs ' + t["player2"] + ' ' + t["time"] 
+     

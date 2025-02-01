@@ -15,6 +15,8 @@ router.get('/', async function (req, res) {
         .then(result => {
             tournaments = result;
 
+            console.log(tournaments);
+
             if (!tournaments?.length) {
 
                 console.log("no tournaments found");
@@ -28,12 +30,8 @@ router.get('/', async function (req, res) {
         })
         .catch(error => {
             console.log(error);
-            res.render("index", { 'tournaments': tournaments });
-            //handle any errors here
-        }); 
-
-    
-    
+            res.render("index", { 'tournaments': tournaments });            
+        });
     
 });
 

@@ -11,62 +11,10 @@ JSON.truncate = require('json-truncate')
 
 //const fetch = require("node-fetch");
 
-
-const tournaments =
-[
-         {
-            "name": "WTA",
-            "country": "Singapore",
-            "matches": [
-                {
-                    "player1": "Tatjana Maria",
-                    "player2": "Elise Merterns",
-                },
-                {
-                    "player1": "Maria Sakkari",
-                    "player2": "Xinyu Wang",
-                },
-                {
-                    "player1": "Simona Waltert",
-                    "player2": "Mananchaya Sawangkaew",
-                },
-                {
-                    "player1": "Ann Li",
-                    "player2": "C Busca",
-                }
-            ]
-        },
-
-        {
-            "name": "WTA",
-            "country": "Linz",
-            "matches": [
-                {
-                    "player1": "Aryna Sabalenka",
-                    "player2": "Coco Gauff",
-                },
-                {
-                    "player1": "Elena Rybakina",
-                    "player2": "Jessica Pegula",
-                },
-                {
-                    "player1": "Daria Kasatkina",
-                    "player2": "Danielle Collins",
-                },
-                {
-                    "player1": "Mirra Andreeva",
-                    "player2": "Elina Svitolina",
-                }
-            ]
-        }
-
-    ];
-
-
 function compareFn(a, b) {
 
-    var l1 = parseInt(a[0]);
-    var l2 = parseInt(b[0]);
+    var l1 = parseInt(a["leagueid"]);
+    var l2 = parseInt(b["leagueid"]);
 
     if (l1 < l2) {
         //console.log(l1 + " is less than " + l2);
@@ -93,11 +41,14 @@ function timeConverter(UNIX_timestamp) {
     return time;
 }
 
+function getJsonData(jsArray) {
+    return JSON.parse(JSON.stringify(jsArray));    
+}
 
 async function getData(id) {
-
-
-    let maindata = new Array();
+        
+    var jsonArrLine = [];
+    var jsonArray = [];
 
     const url = urlUpcoming;
     var requestOptions = {
@@ -105,11 +56,14 @@ async function getData(id) {
         redirect: 'follow',
         headers: myHeaders
     };
-    try {
-        const response = await fetch(url, requestOptions);
+    try
+        {
+            const response = await fetch(url, requestOptions);
+
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
+                throw new Error(`Response status: ${response.status}`);
+            }
+
         const data = await response.json();
 
         var r1 = jsonQuery('results', {
@@ -120,44 +74,38 @@ async function getData(id) {
 
             var result = r1.value[i];
 
-            var time = timeConverter(result.time);
-            var leagueid = result.league.id;
-            var tournamentname = result.league.name.split(" ").join("");
-            var player1 = result.home.name;
-            var player2 = result.away.name;
-            //var tempData = leaguename + ' ' + player1 + ' ' + player2 + ' ' + leagueid + ' ' + time;
+            if (result != null) {
 
-            if ((tournamentname.startsWith("WTA") || tournamentname.startsWith("ATP")) && !tournamentname.endsWith("WD")) {
-                let dataline = new Array(5);
-                dataline[0] = leagueid;
-                dataline[1] = time;
-                dataline[2] = tournamentname;
-                dataline[3] = player1;
-                dataline[4] = player2;
-                maindata.push(dataline);
+                var tournament = result.league.name.split(" ").join("");
 
+                if ((tournament.startsWith("WTA") || tournament.startsWith("ATP")) && !tournament.endsWith("MD") && !tournament.endsWith("WD")) {
+
+                    //console.log(tournament + '  ' + result.home.name + ' vs ' + result.away.name);
+                    var leagueid = result.league.id;
+                    var time = result.time;
+                    var tournament = result.league.name.split(" ").join("");
+                    var player1 = result.home.name;
+                    var player2 = result.away.name;
+
+                    jsonArrLine.push({
+                        leagueid: leagueid,
+                        time: time,
+                        tournament: tournament,
+                        player1: player1,
+                        player2: player2
+                    });
+                }
             }
-
         }
-
-        maindata = maindata.sort(compareFn);
-        console.log(maindata);
-        //resolve(maindata);
-
     }
 
     catch (error) {
         console.error(error.message);
     }
 
-    return maindata;
-
-
-    //return new Promise((resolve) => {
-
-
-        
-    //})
+    jsonArrLine = jsonArrLine.sort(compareFn);
+    //console.log(jsonArrLine);
+    return jsonArrLine;
 };
 
 class TennisService {
@@ -168,10 +116,8 @@ class TennisService {
     async getTournaments() {
 
         return new Promise((resolve) => {
-            var upcomingEvents =  getData(13); // tennis sportsId is 13
-            //console.log(upcomingEvents);
-            const obj = tournaments;
-            resolve(obj);
+            var upcomingEvents = getData(13); // tennis sportsId is 13
+            resolve(upcomingEvents);
         });
     }
 }
