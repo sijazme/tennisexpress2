@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "json-query": "^2.2.2",
     "json-truncate": "^3.0.0",
     "node-fetch": "^2.7.0"

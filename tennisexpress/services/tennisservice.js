@@ -79,7 +79,9 @@ async function getData(url, id) {
 
                 var tournament = result.league.name.split(" ").join("");
 
-                if ((tournament.startsWith("WTA") || tournament.startsWith("ATP")) && !tournament.endsWith("MD") && !tournament.endsWith("WD")) {
+                // (tournament.startsWith("WTA") || tournament.startsWith("ATP")) &&
+
+                if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
 
                     //console.log(tournament + '  ' + result.home.name + ' vs ' + result.away.name);
                     var leagueid = result.league.id;

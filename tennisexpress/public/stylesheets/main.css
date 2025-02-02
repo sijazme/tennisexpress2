@@ -4,7 +4,6 @@ body {
     font-size: 11px;
     color:white;
     background-color: black;
-
 }
 
 a {
@@ -22,7 +21,7 @@ li {
     margin-bottom: 10px;
     line-height: 45px;
     color:white;
-    background-color: darkgreen;
+    background-color: black;
 }
 
 li:first-child {
@@ -40,6 +39,7 @@ img {
     width: 280px;
     margin-left: 70px;
     border: 1px solid white;
+    margin-bottom: 10px;
 }
 
 
@@ -48,3 +48,30 @@ p {
     font-size: 24px;
     margin-left: 70px;
 }
+
+div {
+    font-family: Consolas;
+    font-size: 14px;
+    margin: 20px;
+    background-color:black;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+/*.btn {
+    background-color: lightgreen;*/ /* Green */
+    /*border: 2px;
+    border-color:black;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.btn:hover {
+    border: 3px solid red;
+}*/

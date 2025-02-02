@@ -1,8 +1,14 @@
 extends layout
 
 block content
-  p TENNIS EXPRESS
-  img(src='../images/tennis.jpg' , alt='tennis racket') 
+  link(rel='stylesheet', href='/stylesheets/main.css')
+  p TENNIS EXPRESS  
+  img(src='../images/tennis.jpg' , alt='tennis racket')
+  div(class='container')
+    button.btn.btn-primary(type='button') Inplay
+    span
+    button.btn.btn-secondary(type='button') Upcoming
+    
   each t in tournaments      
    ul
     li= t["tournament"] +  ' ' + t["player1"] +  ' vs ' + t["player2"] + ' ' + t["time"] 
