@@ -2,8 +2,9 @@
     "name": "tennisexpress",
     "version": "0.0.0",
     "private": true,
-    "scripts": {        
-        "build": "node build"        
+    "scripts": {
+        "start": "node app.js",
+        "build": "node build"
     },
     
     "description": "tennisexpress",
