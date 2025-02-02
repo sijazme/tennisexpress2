@@ -1,18 +1,11 @@
 const UPCOMING = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
 const INPLAY = "https://api.b365api.com/v3/events/inplay?sport_id=13&token=212610-grkv7alAClZ83h";
-
 const SPORTSID = 13;
-
-
 var myHeaders = new Headers();
 myHeaders.append("token", "212610-grkv7alAClZ83h");
-
 var jsonQuery = require('json-query');
 JSON.truncate = require('json-truncate')
 
-
-
-//const fetch = require("node-fetch");
 
 var groupBy = function (xs, key) {
     return xs.reduce(function (rv, x) {
@@ -43,7 +36,7 @@ function getJsonData(jsArray) {
 async function getData(url, id) {
         
     var jsonArrLine = [];
-    var jsonArray = [];
+    
     
     var requestOptions = {
         method: 'GET',
@@ -54,50 +47,45 @@ async function getData(url, id) {
         {
             const response = await fetch(url, requestOptions);
 
-        if (!response.ok) {
+            if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
 
-        const data = await response.json();
+                const data = await response.json();
 
-        var r1 = jsonQuery('results', {
-            data: JSON.truncate(data, 10)
-        });
+                var r1 = jsonQuery('results', {
+                    data: JSON.truncate(data, 10)
+                });
 
-        for (i = 0; i < r1.value.length; i++) {
+                for (i = 0; i < r1.value.length; i++) {
 
-            var result = r1.value[i];
+                    var result = r1.value[i];
 
-            if (result != null) {
+                    if (result != null) {
 
-                var tournament = result.league.name.split(" ").join("");
+                        var tournament = result.league.name.split(" ").join("");
 
-                // (tournament.startsWith("WTA") || tournament.startsWith("ATP")) &&
+                        if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
 
-                if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
+                            var moment = require('moment');
+                            var timestamp = parseInt(result.time);
+                            var momentStyle = moment.unix(timestamp);
+                            var formattedDate = moment(momentStyle).local().format('LLLL');
+                            var leagueid = result.league.id;
+                            var time = formattedDate;
+                            var tournament = result.league.name.split(" ").join("");
+                            var player1 = result.home.name;
+                            var player2 = result.away.name;
 
-                    var moment = require('moment');
-                    var timestamp = parseInt(result.time);
-                    var momentStyle = moment.unix(timestamp);
-                    var formattedDate = moment(momentStyle).local().format('LLLL');
-                    
-                    //console.log(formattedDate);
-                    //console.log(tournament + '  ' + result.home.name + ' vs ' + result.away.name);
-                    var leagueid = result.league.id;
-                    var time = formattedDate;
-                    var tournament = result.league.name.split(" ").join("");
-                    var player1 = result.home.name;
-                    var player2 = result.away.name;
-
-                    jsonArrLine.push({
-                        leagueid: leagueid,
-                        time: time,
-                        tournament: tournament,
-                        player1: player1,
-                        player2: player2
-                    });
-                }
-            }
+                            jsonArrLine.push({
+                                leagueid: leagueid,
+                                time: time,
+                                tournament: tournament,
+                                player1: player1,
+                                player2: player2
+                            });
+                        }
+                    }
         }
     }
 
@@ -107,9 +95,7 @@ async function getData(url, id) {
 
     jsonArrLine = jsonArrLine.sort(compareFn);
 
-    var groupbytournament = groupBy(jsonArrLine, 'tournament')
-    //console.log(groupbytournament);
-    //console.log(jsonArrLine);
+    var groupbytournament = groupBy(jsonArrLine, 'tournament');    
     return groupbytournament;
 };
 
