@@ -1,31 +1,39 @@
 {
-  "name": "tennisexpress",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node app"
-  },
-  "description": "tennisexpress",
-  "author": {
-    "name": ""
-  },
-  "dependencies": {
-    "body-parser": "^1.15.0",
-    "bootstrap": "^5.3.3",
-    "cookie-parser": "^1.4.0",
-    "debug": "^2.2.0",
-    "express": "^4.14.0",
-    "moment": "^2.30.1",
-    "morgan": "^1.7.0",
-    "node-fetch": "^3.3.2",
-    "pug": "^2.0.0-beta6",
-    "serve-favicon": "^2.3.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.2.6",
-    "eslint": "^4.19.1"
-  },
-  "eslintConfig": {
-    "extends": "./eslint.config.js"
-  }
+    "name": "tennisexpress",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node app",
+        "deploy": "claudia create --version dev --region us-east-1 --api-module api",
+        "release": "claudia set-version --version production"
+    },
+    
+    "description": "tennisexpress",
+    "author": {
+        "name": ""
+    },
+    "dependencies": {
+        "body-parser": "^1.15.0",
+        "bootstrap": "^5.3.3",
+        "claudia": "^5.14.1",
+        "cookie-parser": "^1.4.0",
+        "debug": "^2.2.0",
+        "express": "^4.14.0",
+        "moment": "^2.30.1",
+        "morgan": "^1.7.0",
+        "node-fetch": "^3.3.2",
+        "pug": "^2.0.0-beta6",
+        "serve-favicon": "^2.3.0"
+    },
+    "devDependencies": {
+        "babel-eslint": "^8.2.6",
+        "eslint": "^4.19.1"
+    },
+    "eslintConfig": {
+        "extends": "./eslint.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sijazme/tennisexpress.git"
+    }
 }
