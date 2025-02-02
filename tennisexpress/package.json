@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "node app",
-        "build": "npm run build"
+        "build": "npm run build --verbose"
 
     },
     
