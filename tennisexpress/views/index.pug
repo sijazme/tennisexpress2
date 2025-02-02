@@ -1,12 +1,10 @@
 extends layout
 
 block content
-  link(rel='stylesheet', href='/stylesheets/main.css')
-  p TENNIS EXPRESS  
-  img(src='../images/tennis.jpg' , alt='tennis racket')
-  div(class='container')
-    button.btn.btn-primary(type='button') Inplay
-    span
+  link(rel='stylesheet', href='/stylesheets/main.css')  
+  img(src='../images/tennisexpress.jpg' , alt='tennis racket')
+  div(class='container')  
+    button.btn.btn-primary(type='button') Inplay    
     button.btn.btn-secondary(type='button') Upcoming
     
   each t in tournaments      
