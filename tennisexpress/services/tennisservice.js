@@ -11,7 +11,15 @@ var jsonQuery = require('json-query');
 JSON.truncate = require('json-truncate')
 
 
+
 //const fetch = require("node-fetch");
+
+var groupBy = function (xs, key) {
+    return xs.reduce(function (rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+    }, {});
+};
 
 function compareFn(a, b) {
 
@@ -28,21 +36,6 @@ function compareFn(a, b) {
     }
     return 0;
 }
-
-
-function timeConverter(UNIX_timestamp) {
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    return time;
-}
-
 function getJsonData(jsArray) {
     return JSON.parse(JSON.stringify(jsArray));    
 }
@@ -83,9 +76,15 @@ async function getData(url, id) {
 
                 if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
 
+                    var moment = require('moment');
+                    var timestamp = parseInt(result.time);
+                    var momentStyle = moment.unix(timestamp);
+                    var formattedDate = moment(momentStyle).local().format('LLLL');
+                    
+                    //console.log(formattedDate);
                     //console.log(tournament + '  ' + result.home.name + ' vs ' + result.away.name);
                     var leagueid = result.league.id;
-                    var time = result.time;
+                    var time = formattedDate;
                     var tournament = result.league.name.split(" ").join("");
                     var player1 = result.home.name;
                     var player2 = result.away.name;
@@ -107,8 +106,11 @@ async function getData(url, id) {
     }
 
     jsonArrLine = jsonArrLine.sort(compareFn);
+
+    var groupbytournament = groupBy(jsonArrLine, 'tournament')
+    //console.log(groupbytournament);
     //console.log(jsonArrLine);
-    return jsonArrLine;
+    return groupbytournament;
 };
 
 class TennisService {
@@ -120,7 +122,7 @@ class TennisService {
 
         return new Promise((resolve) => {
 
-            var url = INPLAY;
+            var url = UPCOMING;
             var events = getData(url, SPORTSID); // tennis sportsId is 13
             resolve(events);
         });

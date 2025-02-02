@@ -10,28 +10,25 @@ a {
     color: #00B7FF;    
 }
 
-li {
-    font-family: Consolas;
-    font-size: larger;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-left: 40px;
+ul {
     border: 1px solid grey;
-    width: 600px;
-    margin-bottom: 10px;
-    line-height: 45px;
-    color:white;
-    background-color: black;
-}
-
-li:first-child {
-    margin-top: 0;
     
 }
 
-.badge {
-    font-weight: bold;
-    color: blue;    
+li {
+    font-family: Consolas;
+    font-size: 14px;    
+    margin-top: 0px;
+    width: 600px;
+    margin-bottom: 10px;
+    line-height: 18px;
+    color: white;
+    background-color: black;
+    list-style-type: none;
+}
+
+li:first-child {
+    margin-top: 0;    
 }
 
 img {
@@ -46,14 +43,13 @@ img {
 
 p {
     font-family: Consolas;
-    font-size: 24px;
+    font-size: 10px;
     margin-left: 70px;
 }
 
 div {
     font-family: Consolas;
-    font-size: 14px;
-    margin: 20px;
+    font-size: 14px;    
     background-color: black;    
 }
 
@@ -64,6 +60,16 @@ div {
 .container {
     
     margin-left: 70px !important;
+}
+
+.heading {
+    color: yellow;
+    font-size: 20px;    
+}
+
+.buffer {
+    margin: 10px;
+    margin-left: 70px;
 }
 
 /*.btn {
