@@ -23,7 +23,7 @@ li {
     width: 600px;
     margin-bottom: 10px;
     line-height: 10px;
-    color: dimgrey;
+    color: ghostwhite;
     background-color: black;
     list-style-type: none;
 }
@@ -65,7 +65,9 @@ div {
 
 .heading {
     color: yellow;
-    font-size: 20px;    
+    font-size: 16px;
+    margin-left: 90px !important;
+    margin-bottom: 0px;
 }
 
 .buffer {
@@ -73,18 +75,18 @@ div {
     margin-left: 70px;
 }
 
-/*.btn {
-    background-color: lightgreen;*/ /* Green */
-    /*border: 2px;
+.btn {    
+    border: 2px;
     border-color:black;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 20px;
+    font-size: 14px;
+    height:30px;
 }
 
 .btn:hover {
-    border: 3px solid red;
-}*/
+    border: 2px solid red;
+}
