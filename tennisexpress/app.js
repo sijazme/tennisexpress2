@@ -2,12 +2,13 @@
 var debug = require('debug')('my express app');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
-var users = require('./routes/users');
+
+var favicon = require('serve-favicon');
 var fetch = require('node-fetch');
 var jsonQuery = require('json-query');
 
@@ -29,7 +30,6 @@ app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist
 
 
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,11 +1,26 @@
-const UPCOMING = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
-const INPLAY = "https://api.b365api.com/v3/events/inplay?sport_id=13&token=212610-grkv7alAClZ83h";
-const SPORTSID = 13;
-var myHeaders = new Headers();
-myHeaders.append("token", "212610-grkv7alAClZ83h");
+
+// Require these libraries
 var jsonQuery = require('json-query');
 JSON.truncate = require('json-truncate')
 
+// BETS API url
+
+const UPCOMING = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
+const INPLAY = "https://api.b365api.com/v3/events/inplay?sport_id=13&token=212610-grkv7alAClZ83h";
+
+var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+    headers: myHeaders
+};
+
+// BETSAPI Sports ID for TENNIS
+
+const SPORTSID = 13;
+var myHeaders = new Headers();
+
+// Headers for the GET request
+myHeaders.append("token", "212610-grkv7alAClZ83h");
 
 var groupBy = function (xs, key) {
     return xs.reduce(function (rv, x) {
@@ -29,63 +44,59 @@ function compareFn(a, b) {
     }
     return 0;
 }
-function getJsonData(jsArray) {
-    return JSON.parse(JSON.stringify(jsArray));    
+
+function addJsonLine(result, arr)
+{
+    var moment = require('moment');
+    var timestamp = parseInt(result.time);
+    var momentStyle = moment.unix(timestamp);
+    
+    var leagueid = result.league.id;
+    var time = moment(momentStyle).local().format('LLLL');
+    var tournament = result.league.name.split(" ").join("");
+    var player1 = result.home.name;
+    var player2 = result.away.name;
+
+    arr.push({
+        leagueid: leagueid,
+        time: time,
+        tournament: tournament,
+        player1: player1,
+        player2: player2
+    });
 }
 
 async function getData(url, id) {
         
-    var jsonArrLine = [];
-    
-    
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow',
-        headers: myHeaders
-    };
+    var jsonArray = [];
+    var groupJson = [];
+   
     try
-        {
-            const response = await fetch(url, requestOptions);
+    {
+        const response = await fetch(url, requestOptions);
 
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }        
+
+        const data = await response.json();
+
+        if (data) {
+            var r1 = jsonQuery('results', {
+                data: JSON.truncate(data, 10)
+            });
+
+            for (i = 0; i < r1.value.length; i++) {
+
+                var result = r1.value[i];
+
+                var tournament = result.league.name.split(" ").join("");
+
+                if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
+
+                    addJsonLine(result, jsonArray);
+                }
             }
-
-                const data = await response.json();
-
-                var r1 = jsonQuery('results', {
-                    data: JSON.truncate(data, 10)
-                });
-
-                for (i = 0; i < r1.value.length; i++) {
-
-                    var result = r1.value[i];
-
-                    if (result != null) {
-
-                        var tournament = result.league.name.split(" ").join("");
-
-                        if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
-
-                            var moment = require('moment');
-                            var timestamp = parseInt(result.time);
-                            var momentStyle = moment.unix(timestamp);
-                            var formattedDate = moment(momentStyle).local().format('LLLL');
-                            var leagueid = result.league.id;
-                            var time = formattedDate;
-                            var tournament = result.league.name.split(" ").join("");
-                            var player1 = result.home.name;
-                            var player2 = result.away.name;
-
-                            jsonArrLine.push({
-                                leagueid: leagueid,
-                                time: time,
-                                tournament: tournament,
-                                player1: player1,
-                                player2: player2
-                            });
-                        }
-                    }
         }
     }
 
@@ -93,10 +104,12 @@ async function getData(url, id) {
         console.error(error.message);
     }
 
-    jsonArrLine = jsonArrLine.sort(compareFn);
+    if (jsonArray) {
+        jsonArray = jsonArrLine.sort(compareFn);
+        groupJson = groupBy(jsonArrLine, 'tournament');
+    }
 
-    var groupbytournament = groupBy(jsonArrLine, 'tournament');    
-    return groupbytournament;
+    return groupJson;
 };
 
 class TennisService {
@@ -108,7 +121,7 @@ class TennisService {
 
         return new Promise((resolve) => {
 
-            var url = INPLAY;
+            var url = UPCOMING;
             var events = getData(url, SPORTSID); // tennis sportsId is 13
             resolve(events);
         });
