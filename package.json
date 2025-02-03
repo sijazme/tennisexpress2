@@ -6,6 +6,7 @@
     "json-query": "^2.2.2",
     "json-truncate": "^3.0.0",
     "moment": "^2.30.1",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "serve-favicon": "^2.5.0"
   }
 }
