@@ -17,8 +17,9 @@ var requestOptions = {
 // BETSAPI Sports ID for TENNIS
 
 const SPORTSID = 13;
-var myHeaders = new Headers();
 
+// headers
+var myHeaders = new Headers();
 // Headers for the GET request
 myHeaders.append("token", "212610-grkv7alAClZ83h");
 
@@ -34,12 +35,9 @@ function compareFn(a, b) {
     var l1 = parseInt(a["leagueid"]);
     var l2 = parseInt(b["leagueid"]);
 
-    if (l1 < l2) {
-        //console.log(l1 + " is less than " + l2);
+    if (l1 < l2) {        
         return -1;
-    } else if (l1 > l2) {
-
-        //console.log(l1 + " is greater than " + l2);
+    } else if (l1 > l2) {        
         return 1;
     }
     return 0;
