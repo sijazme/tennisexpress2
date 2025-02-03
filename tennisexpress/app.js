@@ -11,7 +11,6 @@ var users = require('./routes/users');
 var fetch = require('node-fetch');
 var jsonQuery = require('json-query');
 
-
 var app = express();
 
 // view engine setup
