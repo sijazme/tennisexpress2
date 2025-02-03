@@ -64,7 +64,7 @@ div {
 }
 
 .heading {
-    color: yellow;
+    color: deepskyblue;
     font-size: 16px;
     margin-left: 90px !important;
     margin-bottom: 0px;
@@ -89,4 +89,8 @@ div {
 
 .btn:hover {
     border: 2px solid red;
+}
+
+.inplayButton{
+
 }
