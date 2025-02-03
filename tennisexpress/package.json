@@ -2,14 +2,14 @@
     "name": "tennisexpress",
     "version": "0.0.0",
     "private": true,
+    "main": "app.js",
     "scripts": {
         "start": "node app"
-
     },
-    
+
     "description": "tennisexpress",
     "author": {
-        "name": ""
+        "name": "ehsan ijaz"
     },
     "dependencies": {
         "body-parser": "^1.15.0",
