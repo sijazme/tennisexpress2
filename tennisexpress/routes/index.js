@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-const service1 = require("./services/TennisService");
+const service1 = require("services/TennisService");
 
 
 /* GET home page. */
