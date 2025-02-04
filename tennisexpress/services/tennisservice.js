@@ -51,7 +51,7 @@ function addJsonLine(result, arr)
     
     var leagueid = result.league.id;
     var time = moment(momentStyle).local().format('LLLL');
-    var tournament = result.league.name.split(" ").join("");
+    var tournament = result.league.name;
     var player1 = result.home.name;
     var player2 = result.away.name;
 
