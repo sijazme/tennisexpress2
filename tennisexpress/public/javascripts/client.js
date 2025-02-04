@@ -3,9 +3,6 @@ $(document).ready(function () {
 
 
     $('#buttonInplay').bind('click', function () {
-        
-
-        
         var url = '/0';
         window.location = url;
 
@@ -43,7 +40,6 @@ $(document).ready(function () {
 
     $('#buttonUpcoming').bind('click', function () {
                
-        
         var url = '/1';
         window.location = url;
        
