@@ -32,7 +32,7 @@ router.get('/:id', async function (req, res) {
                     var valueArray = tournaments[key];
                     //console.log(key + ": " + valueArray);
                 }
-                console.log("RENDER MATCHES FROM BUTTON EVENT");
+                //console.log("RENDER MATCHES FROM BUTTON EVENT");
                 res.render("index", { 'tournaments': tournaments });
             }
 
@@ -64,7 +64,7 @@ router.get('/', async function (req, res) {
                     var valueArray = tournaments[key];
                     //console.log(key + ": " + valueArray);
                 }
-                console.log("########## RENDER WITHOUT ID ##########");
+                //console.log("########## RENDER WITHOUT ID ##########");
                 res.render("index", { 'tournaments': tournaments });
             }
             

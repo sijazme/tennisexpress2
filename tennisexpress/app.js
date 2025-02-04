@@ -32,10 +32,6 @@ app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist
 
 //app.use('/:id', routes);
 app.use('/', routes);
-//app.use('/:id', function (req, res, next) {
-//    console.log('Request Id:', req.params.id);
-//    next();
-//});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
