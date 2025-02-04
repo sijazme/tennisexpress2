@@ -8,7 +8,4 @@
     </CleanCommand>
     <StartupCommand>set PORT=1337 &amp; npm run start</StartupCommand>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="public\javascripts\" />
-  </ItemGroup>
 </Project>

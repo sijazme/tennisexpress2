@@ -11,6 +11,12 @@ router.get('/', async function (req, res) {
 
     var tournaments = {};
 
+    if (req.params.type == 'inplay') {
+        res.send('display inplay matches');
+    } else if (req.params.type == 'upcoming') {
+        res.send('display inplay matches');
+    } 
+
     service1.getTournaments()
         .then(result => {
 

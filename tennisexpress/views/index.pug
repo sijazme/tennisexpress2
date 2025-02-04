@@ -1,11 +1,10 @@
 extends layout
 
 block content
-  link(rel='stylesheet', href='/stylesheets/main.css')   
-  
+
   div(class='container')  
-    button.btn.btn-primary(type='button') Inplay    
-    button.btn.btn-secondary(type='button' ) Upcoming
+    button.btn.btn-primary(type='button' id='buttonInplay') Inplay    
+    button.btn.btn-secondary(type='button' id='buttonUpcoming') Upcoming
   
   div(class='buffer')
   each key in tournaments
@@ -15,4 +14,4 @@ block content
      ul    
      li= match.player1
      li= match.player2
-     li= match.time
+     li= match.time  
