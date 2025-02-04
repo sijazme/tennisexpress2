@@ -9,9 +9,9 @@ block content
   div(class='buffer')
   each key in tournaments
    p(class='heading')= key[0].tournament
-   div(class='container')  
+   div(class='container' id='divRender')  
     each match in key
-     ul    
+     ul(id='matchlist')
      li= match.player1
      li= match.player2
      li= match.time  

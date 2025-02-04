@@ -5,19 +5,50 @@ var router = express.Router();
 const service1 = require("../services/tennisservice.js");
 
 
-/* GET home page. */
-router.get('/', async function (req, res) {
+///:userId
 
+router.get('/:id', async function (req, res) {
+   
+    //const id = parseInt(req.params.id.split("id=")[1]);
+    const id = req.params.id;
+
+    //console.log("===> REQUEST ID FOUND  = " + id);
 
     var tournaments = {};
 
-    if (req.params.type == 'inplay') {
-        res.send('display inplay matches');
-    } else if (req.params.type == 'upcoming') {
-        res.send('display inplay matches');
-    } 
+    service1.getTournaments(id)
+        .then(result => {
 
-    service1.getTournaments()
+            tournaments = result;
+
+            if (tournaments.length <= 0) {
+
+                console.log("no tournaments found");
+
+            }
+            else {
+
+                for (var key in tournaments) {
+                    var valueArray = tournaments[key];
+                    //console.log(key + ": " + valueArray);
+                }
+                console.log("RENDER MATCHES FROM BUTTON EVENT");
+                res.render("index", { 'tournaments': tournaments });
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+            res.render("index", { 'tournaments': tournaments });
+        });
+
+});
+
+/* GET home page. */
+router.get('/', async function (req, res) {
+    
+    var tournaments = {};
+    service1.getTournaments(0)
         .then(result => {
 
             tournaments = result;            
@@ -33,7 +64,7 @@ router.get('/', async function (req, res) {
                     var valueArray = tournaments[key];
                     //console.log(key + ": " + valueArray);
                 }
-
+                console.log("########## RENDER WITHOUT ID ##########");
                 res.render("index", { 'tournaments': tournaments });
             }
             

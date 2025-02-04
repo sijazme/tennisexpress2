@@ -115,11 +115,11 @@ class TennisService {
         this.getTournaments = this.getTournaments.bind(this);
     }
 
-    async getTournaments() {
+    async getTournaments(id) {
 
         return new Promise((resolve) => {
-
-            var url = UPCOMING;
+            var url = (id == 0 ? INPLAY : UPCOMING);
+            console.log("PASSED IN TARGET URL ID ############# " + id + '   #############');
             var events = getData(url, SPORTSID); // tennis sportsId is 13
             resolve(events);
         });
