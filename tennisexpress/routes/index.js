@@ -8,7 +8,7 @@ const service1 = require("../services/tennisservice.js");
 ///:userId
 
 router.get('/:id', async function (req, res) {
-   
+
     //const id = parseInt(req.params.id.split("id=")[1]);
     const id = req.params.id;
 
@@ -46,17 +46,17 @@ router.get('/:id', async function (req, res) {
 
 /* GET home page. */
 router.get('/', async function (req, res) {
-    
+
     var tournaments = {};
     service1.getTournaments(0)
         .then(result => {
 
-            tournaments = result;            
+            tournaments = result;
 
             if (tournaments.length <= 0) {
 
                 console.log("no tournaments found");
-                
+
             }
             else {
 
@@ -67,13 +67,13 @@ router.get('/', async function (req, res) {
                 //console.log("########## RENDER WITHOUT ID ##########");
                 res.render("index", { 'tournaments': tournaments });
             }
-            
+
         })
         .catch(error => {
             console.log(error);
-            res.render("index", { 'tournaments': tournaments });            
+            res.render("index", { 'tournaments': tournaments });
         });
-    
+
 });
 
 module.exports = router;

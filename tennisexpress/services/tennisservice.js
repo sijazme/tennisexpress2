@@ -3,6 +3,10 @@
 var jsonQuery = require('json-query');
 JSON.truncate = require('json-truncate')
 
+
+// ODDS Service reference
+const service2 = require("../services/oddsservice.js");
+
 // BETS API url
 
 const UPCOMING = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
@@ -43,20 +47,66 @@ function compareFn(a, b) {
     return 0;
 }
 
-function addJsonLine(result, arr)
+async function getOddsData(eventId) {
+
+    // ODDS Service Data (eventId)
+    //console.log("==> event id ####### " + eventId);
+
+    var oddsData = [];
+
+    if (eventId && eventId > 0) {
+
+        service2.getOdds(eventId)
+            .then(result => {
+
+                oddsData = result;
+
+                if (oddsData === undefined || oddsData.length <= 0) {
+
+                    //console.log('odds data empty');
+
+                }
+                else {
+
+                    //console.log('odds data found');
+                    console.log(oddsData);                    
+                    
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+                //res.render("index", { 'tournaments': tournaments });
+            });
+
+    }
+
+    
+    return oddsData;
+    
+}
+
+async function addJsonLine(result, arr)
 {
+    var eventId = result.id;
+
+    // add time
     var moment = require('moment');
     var timestamp = parseInt(result.time);
-    var momentStyle = moment.unix(timestamp);
-    
-    var leagueid = result.league.id;
+    var momentStyle = moment.unix(timestamp);        
     var time = moment(momentStyle).local().format('LLLL');
+
+    // tournament info
     var tournament = result.league.name;
     var player1 = result.home.name;
     var player2 = result.away.name;
 
+    getOddsData(eventId);
+    //var oddsData = getOddsData(eventId);
+    //console.log(oddsData);
+
     arr.push({
-        leagueid: leagueid,
+        eventId: eventId,
         time: time,
         tournament: tournament,
         player1: player1,
@@ -84,6 +134,7 @@ async function getData(url, id) {
                 data: JSON.truncate(data, 10)
             });
 
+            
             for (i = 0; i < r1.value.length; i++) {
 
                 var result = r1.value[i];
@@ -91,7 +142,7 @@ async function getData(url, id) {
                 var tournament = result.league.name.split(" ").join("");
 
                 if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
-
+                    
                     addJsonLine(result, jsonArray);
                 }
             }
@@ -119,7 +170,7 @@ class TennisService {
 
         return new Promise((resolve) => {
             var url = (id == 0 ? INPLAY : UPCOMING);
-            console.log("PASSED IN TARGET URL ID ############# " + id + '   #############');
+            //console.log("targel url: " + url);
             var events = getData(url, SPORTSID); // tennis sportsId is 13
             resolve(events);
         });
