@@ -4,8 +4,8 @@ var jsonQuery = require('json-query');
 JSON.truncate = require('json-truncate')
 
 // BETS API url
-const SPORTSID = 13;
-const ODDSService = "https://api.b365api.com/v2/event/odds?token=212610-grkv7alAClZ83h&event_id=";
+
+const ODDSService = "https://api.b365api.com/v2/event/odds/summary?token=212610-grkv7alAClZ83h&event_id=";
 
 var requestOptions = {
     method: 'GET',
@@ -24,25 +24,32 @@ function isFloat(val) {
         return true;
     }
 }
-function addJsonLine(odds, arr) {
+async function addJsonLine(eventid, oddsdata, arr) {
 
-    if (odds && odds[0] && odds.length > 0)
+    if (oddsdata)
     {
-            //console.log(odds[0]);
 
-            var odds_val = odds[0];
-            var moment = require('moment');
-            var timestamp = parseInt(odds_val.add_time);
-            var momentStyle = moment.unix(timestamp);
-            var add_time = moment(momentStyle).local().format('LLLL');
-            var home_od = odds_val.home_od;
-            var away_od = odds_val.away_od;
-            var ss = odds_val.ss;
+        var data = jsonQuery('13_1', {
+            data: oddsdata
+        });
+
+        var oddsvalue = data.value;
+
+       // console.log(oddsvalue);
+
+        var moment = require('moment');
+        var timestamp = parseInt(oddsvalue.add_time);
+        var momentStyle = moment.unix(timestamp);
+        var add_time = moment(momentStyle).local().format('LLLL');
+        var home_od = oddsvalue.home_od;
+        var away_od = oddsvalue.away_od;
+        var ss = oddsvalue.ss;
 
         
         if (isFloat(home_od) && isFloat(away_od) && ss != null) {
 
             arr.push({
+                eventid: eventid,
                 add_time: add_time,
                 ss: ss,
                 home_od: home_od,
@@ -51,15 +58,14 @@ function addJsonLine(odds, arr) {
         }
 
     }
-    //console.log(odds['13_1'][0].add_time);
-    //console.log(arr);
+   
 }
 
-async function getData(url, id) {
+async function getData(eventid) {
 
     var jsonArray = [];
-    //var groupJson = [];
-
+    var url = ODDSService + eventid;
+    
     try {
         const response = await fetch(url, requestOptions);
 
@@ -68,28 +74,20 @@ async function getData(url, id) {
         }
 
         const data = await response.json();
+        var oddsdata = data.results.Bet365.odds.end;
+                
 
-        if (data) {
-            var r1 = jsonQuery('results[odds][13_1]', {
-                //data: JSON.truncate(data, 10)
-                 data: data 
-            });
-
-            //var r1 = jsonQuery('results[odds][13_1]');
-
-
-            if (r1 && r1.value) {
-                addJsonLine(r1.value, jsonArray);
-            }
+        if (oddsdata) {
+            
+            addJsonLine(eventid, oddsdata,  jsonArray);        
+            return jsonArray;
         }
     }
 
     catch (error) {
         console.error(error.message);
     }
-
-    //console.log(jsonArray);
-    return jsonArray;
+    
 };
 
 class OddsService {
@@ -100,11 +98,58 @@ class OddsService {
     async getOdds(id) {
 
         return new Promise((resolve) => {
-            var url = ODDSService + id;
+          
             //console.log("ODDS targel url: " + url);
-            var oddsdata = getData(url, SPORTSID); // tennis sportsId is 13
+            var oddsdata = getData(id); // tennis sportsId is 13
             resolve(oddsdata);
         });
+    }
+
+    async getAllOdds(eventids) {
+
+        var oddsArray = [];
+        //console.log(eventids[i]);
+
+        
+
+        return new Promise((resolve) => {
+
+            for (i = 0; i < eventids.length; i++) {
+
+                console.log(eventids[i]);
+                var oddsdata = getData(eventids[i]);
+                oddsArray.push(oddsdata);
+            }
+
+
+            Promise.all(oddsArray).then((values) => {
+                resolve(values);
+            });
+        });
+
+        //return new Promise((resolve) => {
+
+        //    console.log(eventids[0]);
+        //    //var oddsdata = getData(eventids[0]);
+        //    var oddsdata1 = getData(eventids[0]);
+        //    var oddsdata2 = getData(eventids[1]);
+        //    var oddsdata3 = getData(eventids[2]);
+        //    //console.log(oddsdata1);
+        //    ////console.log(oddsdata2);
+        //    ////console.log(oddsdata3);
+
+
+        //    oddsArray.push(oddsdata1);
+        //    oddsArray.push(oddsdata2);
+        //    oddsArray.push(oddsdata3);
+
+
+
+
+        //});
+
+        
+
     }
 }
 

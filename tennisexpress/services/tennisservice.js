@@ -52,16 +52,19 @@ async function getOddsData(eventId) {
     // ODDS Service Data (eventId)
     //console.log("==> event id ####### " + eventId);
 
-    var oddsData = [];
+    var oddsdata = [];
+
+  
 
     if (eventId && eventId > 0) {
 
+        //console.log("EVENT ID = " + eventId);
         service2.getOdds(eventId)
             .then(result => {
 
-                oddsData = result;
+                oddsdata = result;
 
-                if (oddsData === undefined || oddsData.length <= 0) {
+                if (oddsdata === undefined || oddsdata.length <= 0) {
 
                     //console.log('odds data empty');
 
@@ -69,7 +72,9 @@ async function getOddsData(eventId) {
                 else {
 
                     //console.log('odds data found');
-                    console.log(oddsData);                    
+                    console.log(oddsdata);
+                    return oddsdata;
+                    //resolve(oddsdata);
                     
                 }
 
@@ -81,9 +86,7 @@ async function getOddsData(eventId) {
 
     }
 
-    
-    return oddsData;
-    
+    //return oddsdata;
 }
 
 async function addJsonLine(result, arr)
@@ -101,9 +104,8 @@ async function addJsonLine(result, arr)
     var player1 = result.home.name;
     var player2 = result.away.name;
 
-    getOddsData(eventId);
-    //var oddsData = getOddsData(eventId);
-    //console.log(oddsData);
+
+   
 
     arr.push({
         eventId: eventId,
@@ -112,6 +114,8 @@ async function addJsonLine(result, arr)
         player1: player1,
         player2: player2
     });
+
+   
 }
 
 async function getData(url, id) {
@@ -123,11 +127,14 @@ async function getData(url, id) {
     {
         const response = await fetch(url, requestOptions);
 
+
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }        
 
         const data = await response.json();
+        
+
 
         if (data) {
             var r1 = jsonQuery('results', {
@@ -139,13 +146,44 @@ async function getData(url, id) {
 
                 var result = r1.value[i];
 
+
+                // GET Odds Dat from ODDS Service
+                //getOddsData(result.id)
+                //    .then(oddsdata => {
+
+                //        if (oddsdata === undefined || oddsdata.length <= 0) {
+
+                //            //console.log('odds data empty');
+
+                //        }
+                //        else {
+                //            //console.log('odds data FULL');
+                //            console.log(oddsdata);
+                //        }
+
+
+                //    })
+                //    .catch(error => {
+                //        console.log(error);
+
+                //    });
+
                 var tournament = result.league.name.split(" ").join("");
 
                 if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
-                    
+
                     addJsonLine(result, jsonArray);
+
                 }
             }
+
+
+            if (jsonArray) {
+                jsonArray = jsonArray.sort(compareFn);
+                groupJson = groupBy(jsonArray, 'tournament');
+            }
+
+            return groupJson;
         }
     }
 
@@ -171,7 +209,10 @@ class TennisService {
         return new Promise((resolve) => {
             var url = (id == 0 ? INPLAY : UPCOMING);
             //console.log("targel url: " + url);
+
             var events = getData(url, SPORTSID); // tennis sportsId is 13
+
+
             resolve(events);
         });
     }
