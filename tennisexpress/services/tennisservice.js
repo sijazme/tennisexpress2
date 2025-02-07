@@ -48,7 +48,7 @@ function compareFn(a, b) {
 }
 
 async function addOddsData(arr) {
-    console.log("addOddsData ##################");
+    
     
     var eventIds = [];
 
@@ -70,6 +70,8 @@ async function addOddsData(arr) {
 
                 var oddsdata = result;
 
+               
+
                 if (oddsdata === undefined || oddsdata.length <= 0) {
 
                     console.log('odds data empty');
@@ -77,28 +79,37 @@ async function addOddsData(arr) {
                 }
                 else {
 
+                    
                     //console.log('odds data found');
-                    //console.log(oddsdata);
+                    //
                     //resolve(oddsdata);
+
+                    //console.log(oddsdata);
+
+
+
 
                     for (var obj in arr) {
 
-                        //oddsdata['eventid'] == 
-                        //var eventid = arr[obj].eventid;
+                         
+                        var eventid = parseInt(arr[obj].eventid);                        
+                        //console.log("TENNIS SERVICE >>>> addOddsData ######  " + eventid);
+                        
+                        for (var key in oddsdata) {
+                            var odds = oddsdata[key];
+                            if (odds) {
+                                //console.log(odds[0].eventid);
+                                if (odds[0].eventid == eventid) {
+                                    arr[obj].odd1 = odds[0].home_od;
+                                    arr[obj].odd2 = odds[0].away_od;
+                                }
+                            }                            
+                        }
 
-                        //console.log("======================>>>>>    " + eventid);
-                        // console.log(oddsdata);
-
-                        //var r1 = jsonQuery('[*eventid=' + eventid + ']', {
-                        //    data: oddsdata
-                        //});
-
-                        //console.log(r1.value);
-
-                        //arr[obj].odd2 = oddsdata.away_od;
-                        //arr[obj].odd1 = oddsdata.home_od;
-                        //arr[obj].odd2 = oddsdata.away_od;
+                        
                     }
+
+                    console.log(arr);
 
                 }
 

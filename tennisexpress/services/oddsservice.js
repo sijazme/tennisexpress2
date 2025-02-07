@@ -24,18 +24,23 @@ function isFloat(val) {
         return true;
     }
 }
-async function addJsonLine(eventid, oddsdata, arr) {
+async function addJsonLine(eventid, oddsdata) {
 
-    var moment = require('moment');
-    var timestamp = parseInt(oddsdata.add_time);
-    var momentStyle = moment.unix(timestamp);
-    var add_time = moment(momentStyle).local().format('LLLL');
-    var home_od = oddsdata.home_od;
-    var away_od = oddsdata.away_od;
-    var ss = oddsdata.ss;
+    var arr = [];
+    
 
+    //console.log("####$$$$$$$$$$$$$ ===========> " , eventid, home_od);
+    // && isFloat(home_od) && isFloat(away_od)
+    if (eventid > 0 && oddsdata) {
 
-    if (eventid > 0 && isFloat(home_od) && isFloat(away_od) && ss != null) {
+        var moment = require('moment');
+        var timestamp = parseInt(oddsdata.add_time);
+        var momentStyle = moment.unix(timestamp);
+        var add_time = moment(momentStyle).local().format('LLLL');
+        var home_od = oddsdata.home_od;
+        var away_od = oddsdata.away_od;
+        var ss = oddsdata.ss;
+
 
         arr.push({
             eventid: eventid,
@@ -45,16 +50,16 @@ async function addJsonLine(eventid, oddsdata, arr) {
             away_od: parseFloat(away_od)
         });
 
-        return true;
+        
     }
 
-    return false;
+    return arr;
    
 }
 
 async function getData(eventid) {
 
-    var jsonArray = [];
+    var arr = [];
     var url = ODDSService + eventid;
     
     try {
@@ -73,13 +78,13 @@ async function getData(eventid) {
         if (r1 && r1.value) {
 
             var oddsdata = r1.value;
-            //console.log(oddsdata);
-            if (addJsonLine(eventid, oddsdata, jsonArray)) {
-                
-               
+            arr = await addJsonLine(eventid, oddsdata, arr);
+            if (arr && arr.length > 0) {
+               // console.log(arr);
+                return arr;
             }
             
-            return jsonArray;
+           
         }
     }
 
@@ -107,24 +112,27 @@ class OddsService {
     async getAllOdds(eventids) {
 
         var oddsArray = [];
-        //console.log(eventids[i]);
-
         
-
         return new Promise((resolve) => {
 
             for (var i = 0; i < eventids.length; i++) {
 
                 //console.log(eventids[i]);
-                var eventid = eventids[i];
-                //console.log(eventid);
-                var oddsdata = getData(eventid);
-                oddsArray.push(oddsdata);
+                var eventid = parseInt(eventids[i]);
+
+                if (eventid > 0) {
+                    var oddsdata = getData(eventid);
+                    //console.log(oddsdata);
+                    oddsArray.push(oddsdata);
+                    if (oddsdata != []) {
+                        
+                    }
+                }
                 
             }
 
             Promise.all(oddsArray).then((values) => {
-                console.log(values);
+                //console.log(values);
                 resolve(values);
                
             });

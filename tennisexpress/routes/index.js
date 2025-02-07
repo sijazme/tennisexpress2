@@ -12,12 +12,10 @@ const service2 = require("../services/oddsservice.js");
 router.get('/:id', async function (req, res) {
 
     //const id = parseInt(req.params.id.split("id=")[1]);
-    const id = req.params.id;
-    var eventIds = [];
-    //console.log("===> REQUEST ID FOUND  = " + id);
-
+    const id = req.params.id;    
     var tournaments = {};
-
+    var eventIds = [];
+    
     await service1.getTournaments(id)
         .then(result => {
 
