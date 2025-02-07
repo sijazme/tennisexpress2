@@ -47,35 +47,59 @@ function compareFn(a, b) {
     return 0;
 }
 
-async function getOddsData(eventId) {
+async function addOddsData(arr) {
+    console.log("addOddsData ##################");
+    
+    var eventIds = [];
 
-    // ODDS Service Data (eventId)
-    //console.log("==> event id ####### " + eventId);
+    for (var obj in arr) {
+        var value = arr[obj];
+        //console.log(value);
+        if (value.eventid > 0) {
+           // 
+            eventIds.push(value.eventid);
+        }
+    }
 
-    var oddsdata = [];
+   // console.log(eventIds);
 
-  
+    if (eventIds && eventIds.length > 0) {
 
-    if (eventId && eventId > 0) {
-
-        //console.log("EVENT ID = " + eventId);
-        service2.getOdds(eventId)
+        service2.getAllOdds(eventIds)
             .then(result => {
 
-                oddsdata = result;
+                var oddsdata = result;
 
                 if (oddsdata === undefined || oddsdata.length <= 0) {
 
-                    //console.log('odds data empty');
+                    console.log('odds data empty');
 
                 }
                 else {
 
                     //console.log('odds data found');
-                    console.log(oddsdata);
-                    return oddsdata;
+                    //console.log(oddsdata);
                     //resolve(oddsdata);
-                    
+
+                    for (var obj in arr) {
+
+                        //oddsdata['eventid'] == 
+                        //var eventid = arr[obj].eventid;
+
+                        //console.log("======================>>>>>    " + eventid);
+                        // console.log(oddsdata);
+
+                        //var r1 = jsonQuery('[*eventid=' + eventid + ']', {
+                        //    data: oddsdata
+                        //});
+
+                        //console.log(r1.value);
+
+                        //arr[obj].odd2 = oddsdata.away_od;
+                        //arr[obj].odd1 = oddsdata.home_od;
+                        //arr[obj].odd2 = oddsdata.away_od;
+                    }
+
                 }
 
             })
@@ -86,12 +110,13 @@ async function getOddsData(eventId) {
 
     }
 
-    //return oddsdata;
+     
 }
+
 
 async function addJsonLine(result, arr)
 {
-    var eventId = result.id;
+    var eventid = parseInt(result.id);
 
     // add time
     var moment = require('moment');
@@ -104,15 +129,15 @@ async function addJsonLine(result, arr)
     var player1 = result.home.name;
     var player2 = result.away.name;
 
-
-   
-
     arr.push({
-        eventId: eventId,
+        eventid: eventid,
         time: time,
         tournament: tournament,
         player1: player1,
-        player2: player2
+        player2: player2,
+        odd1: 0,
+        odd2: 0
+        
     });
 
    
@@ -145,44 +170,22 @@ async function getData(url, id) {
             for (i = 0; i < r1.value.length; i++) {
 
                 var result = r1.value[i];
-
-
-                // GET Odds Dat from ODDS Service
-                //getOddsData(result.id)
-                //    .then(oddsdata => {
-
-                //        if (oddsdata === undefined || oddsdata.length <= 0) {
-
-                //            //console.log('odds data empty');
-
-                //        }
-                //        else {
-                //            //console.log('odds data FULL');
-                //            console.log(oddsdata);
-                //        }
-
-
-                //    })
-                //    .catch(error => {
-                //        console.log(error);
-
-                //    });
-
+               
                 var tournament = result.league.name.split(" ").join("");
 
                 if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
-
                     addJsonLine(result, jsonArray);
-
                 }
             }
 
+            if (jsonArray && jsonArray.length > 0) {
 
-            if (jsonArray) {
+                addOddsData(jsonArray);
                 jsonArray = jsonArray.sort(compareFn);
                 groupJson = groupBy(jsonArray, 'tournament');
             }
 
+            //return jsonArray;
             return groupJson;
         }
     }
@@ -191,13 +194,17 @@ async function getData(url, id) {
         console.error(error.message);
     }
 
-    if (jsonArray) {
-        jsonArray = jsonArray.sort(compareFn);
-        groupJson = groupBy(jsonArray, 'tournament');
-    }
+    //if (jsonArray) {
 
-    return groupJson;
+        
+    //    jsonArray = jsonArray.sort(compareFn);
+    //    groupJson = groupBy(jsonArray, 'tournament');
+    //}
+
+    //return groupJson;
 };
+
+
 
 class TennisService {
     constructor() {
@@ -211,8 +218,8 @@ class TennisService {
             //console.log("targel url: " + url);
 
             var events = getData(url, SPORTSID); // tennis sportsId is 13
-
-
+            //addOddsData(events);
+            //var groupJson = groupBy(events, 'tournament');
             resolve(events);
         });
     }

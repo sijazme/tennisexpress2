@@ -73,14 +73,17 @@ router.get('/', async function (req, res) {
             }
             else {
 
-                for (var key in tournaments) {
-                    var valueArray = tournaments[key];
-                    for (var obj in valueArray) {
-                        var val = valueArray[obj].eventId;
-                        eventIds.push(val);
-                    }
+                //for (var key in tournaments) {
+                //    var valueArray = tournaments[key];
+                //    for (var obj in valueArray) {
+                //        var val = valueArray[obj].eventId;
+                //        eventIds.push(val);
+                //    }
 
-                }
+                //}
+
+
+
                 res.render("index", { 'tournaments': tournaments });
             }
 
@@ -91,29 +94,7 @@ router.get('/', async function (req, res) {
         });
 
 
-         service2.getAllOdds(eventIds)
-        .then(result => {
-
-            var oddsdata = result;
-
-            if (oddsdata === undefined || oddsdata.length <= 0) {
-
-                console.log('odds data empty');
-
-            }
-            else {
-
-                //console.log('odds data found');
-                console.log(oddsdata);
-                //resolve(oddsdata);
-
-            }
-
-        })
-        .catch(error => {
-            console.log(error);
-            //res.render("index", { 'tournaments': tournaments });
-        });
+        
 
 });
 

@@ -26,38 +26,29 @@ function isFloat(val) {
 }
 async function addJsonLine(eventid, oddsdata, arr) {
 
-    if (oddsdata)
-    {
+    var moment = require('moment');
+    var timestamp = parseInt(oddsdata.add_time);
+    var momentStyle = moment.unix(timestamp);
+    var add_time = moment(momentStyle).local().format('LLLL');
+    var home_od = oddsdata.home_od;
+    var away_od = oddsdata.away_od;
+    var ss = oddsdata.ss;
 
-        var data = jsonQuery('13_1', {
-            data: oddsdata
+
+    if (eventid > 0 && isFloat(home_od) && isFloat(away_od) && ss != null) {
+
+        arr.push({
+            eventid: eventid,
+            add_time: add_time,
+            ss: ss,
+            home_od: parseFloat(home_od),
+            away_od: parseFloat(away_od)
         });
 
-        var oddsvalue = data.value;
-
-       // console.log(oddsvalue);
-
-        var moment = require('moment');
-        var timestamp = parseInt(oddsvalue.add_time);
-        var momentStyle = moment.unix(timestamp);
-        var add_time = moment(momentStyle).local().format('LLLL');
-        var home_od = oddsvalue.home_od;
-        var away_od = oddsvalue.away_od;
-        var ss = oddsvalue.ss;
-
-        
-        if (isFloat(home_od) && isFloat(away_od) && ss != null) {
-
-            arr.push({
-                eventid: eventid,
-                add_time: add_time,
-                ss: ss,
-                home_od: home_od,
-                away_od: away_od
-            });
-        }
-
+        return true;
     }
+
+    return false;
    
 }
 
@@ -74,12 +65,20 @@ async function getData(eventid) {
         }
 
         const data = await response.json();
-        var oddsdata = data.results.Bet365.odds.end;
-                
 
-        if (oddsdata) {
+        var r1 = jsonQuery('results.Bet365.odds.end.13_1', {
+            data: data
+        });
+
+        if (r1 && r1.value) {
+
+            var oddsdata = r1.value;
+            //console.log(oddsdata);
+            if (addJsonLine(eventid, oddsdata, jsonArray)) {
+                
+               
+            }
             
-            addJsonLine(eventid, oddsdata,  jsonArray);        
             return jsonArray;
         }
     }
@@ -114,42 +113,22 @@ class OddsService {
 
         return new Promise((resolve) => {
 
-            for (i = 0; i < eventids.length; i++) {
+            for (var i = 0; i < eventids.length; i++) {
 
-                console.log(eventids[i]);
-                var oddsdata = getData(eventids[i]);
+                //console.log(eventids[i]);
+                var eventid = eventids[i];
+                //console.log(eventid);
+                var oddsdata = getData(eventid);
                 oddsArray.push(oddsdata);
+                
             }
 
-
             Promise.all(oddsArray).then((values) => {
+                console.log(values);
                 resolve(values);
+               
             });
         });
-
-        //return new Promise((resolve) => {
-
-        //    console.log(eventids[0]);
-        //    //var oddsdata = getData(eventids[0]);
-        //    var oddsdata1 = getData(eventids[0]);
-        //    var oddsdata2 = getData(eventids[1]);
-        //    var oddsdata3 = getData(eventids[2]);
-        //    //console.log(oddsdata1);
-        //    ////console.log(oddsdata2);
-        //    ////console.log(oddsdata3);
-
-
-        //    oddsArray.push(oddsdata1);
-        //    oddsArray.push(oddsdata2);
-        //    oddsArray.push(oddsdata3);
-
-
-
-
-        //});
-
-        
-
     }
 }
 
