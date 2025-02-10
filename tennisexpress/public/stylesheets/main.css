@@ -70,11 +70,12 @@ div {
     margin-bottom: 0px;
 }
 
-.green {
+.odds {
     color: greenyellow;
-    font-size: 12px;
-    margin-left:20px;
+    font-size: 14px;
+    margin-left:18px;
     font-weight:bold;
+    font-family:'Cascadia Code';
 }
 
 .buffer {

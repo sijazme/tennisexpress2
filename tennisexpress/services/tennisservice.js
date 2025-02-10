@@ -147,8 +147,8 @@ async function addJsonLine(result, arr)
         tournament: tournament,
         player1: player1,
         player2: player2,
-        odd1: 0,
-        odd2: 0
+        odd1: '',
+        odd2: ''
         
     });   
 }

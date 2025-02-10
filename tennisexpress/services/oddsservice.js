@@ -43,8 +43,8 @@ async function addJsonLine(eventid, oddsdata) {
             eventid: eventid,
             add_time: add_time,
             ss: ss,
-            home_od: parseFloat(home_od),
-            away_od: parseFloat(away_od)
+            home_od: parseFloat(home_od).toFixed(2),
+            away_od: parseFloat(away_od).toFixed(2)
         });
 
         

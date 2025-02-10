@@ -106,6 +106,7 @@ router.get('/', async function (req, res) {
             }
             else {
 
+                // MAP ODDS to EVENTS
                 for (var obj in events) {
                     var eventid = parseInt(events[obj].eventid);
 
@@ -113,8 +114,6 @@ router.get('/', async function (req, res) {
                         var odds = oddsdata[key];
 
                         if (odds && odds[0].eventid == eventid) {
-                            //console.log(events[obj].eventid + " === " + odds[0].eventid);
-                            //console.log(" ######  ");
                             events[obj].odd1 = odds[0].home_od;
                             events[obj].odd2 = odds[0].away_od;
                         }
