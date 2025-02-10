@@ -1,10 +1,10 @@
 extends layout
 
 block content
-
   div(class='container')  
     button.btn.btn-primary(type='button' id='buttonInplay') Inplay    
     button.btn.btn-secondary(type='button' id='buttonUpcoming') Upcoming
+    button.btn.btn-danger(type='button' id='buttonOdds') Odds
   
   div(class='buffer')
   each key in tournaments
@@ -13,5 +13,7 @@ block content
     each match in key
      ul(id='matchlist')
      li= match.player1
+      span.green=match.odd1
      li= match.player2
+      span.green=match.odd2
      li= match.time  

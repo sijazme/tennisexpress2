@@ -26,11 +26,8 @@ function isFloat(val) {
 }
 async function addJsonLine(eventid, oddsdata) {
 
-    var arr = [];
-    
+    var arr = [];    
 
-    //console.log("####$$$$$$$$$$$$$ ===========> " , eventid, home_od);
-    // && isFloat(home_od) && isFloat(away_od)
     if (eventid > 0 && oddsdata) {
 
         var moment = require('moment');
@@ -121,14 +118,10 @@ class OddsService {
                 var eventid = parseInt(eventids[i]);
 
                 if (eventid > 0) {
-                    var oddsdata = getData(eventid);
-                    //console.log(oddsdata);
+                    var oddsdata = getData(eventid);                   
                     oddsArray.push(oddsdata);
-                    if (oddsdata != []) {
-                        
-                    }
-                }
-                
+                  
+                }                
             }
 
             Promise.all(oddsArray).then((values) => {

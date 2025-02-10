@@ -34,6 +34,14 @@ var groupBy = function (xs, key) {
     }, {});
 };
 
+
+
+var tournamentTypeOK = function (tournament) {
+
+    return !tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")
+
+};
+
 function compareFn(a, b) {
 
     var l1 = parseInt(a["leagueid"]);
@@ -48,82 +56,75 @@ function compareFn(a, b) {
 }
 
 async function addOddsData(arr) {
-    
-    
+        
     var eventIds = [];
 
     for (var obj in arr) {
-        var value = arr[obj];
-        //console.log(value);
-        if (value.eventid > 0) {
-           // 
+        var value = arr[obj];        
+        if (value.eventid > 0)
             eventIds.push(value.eventid);
-        }
     }
-
-   // console.log(eventIds);
 
     if (eventIds && eventIds.length > 0) {
 
-        service2.getAllOdds(eventIds)
+        await service2.getAllOdds(eventIds)
             .then(result => {
-
-                var oddsdata = result;
-
-               
+                var oddsdata = result;               
 
                 if (oddsdata === undefined || oddsdata.length <= 0) {
-
-                    console.log('odds data empty');
-
+                    //console.log('odds data empty');
                 }
-                else {
-
-                    
-                    //console.log('odds data found');
-                    //
-                    //resolve(oddsdata);
-
-                    //console.log(oddsdata);
-
-
-
-
-                    for (var obj in arr) {
-
-                         
+                else {                
+                    for (var obj in arr) {                         
                         var eventid = parseInt(arr[obj].eventid);                        
-                        //console.log("TENNIS SERVICE >>>> addOddsData ######  " + eventid);
-                        
+                        //console.log("TENNIS SERVICE >>>> addOddsData ######  " + eventid);                        
                         for (var key in oddsdata) {
                             var odds = oddsdata[key];
                             if (odds) {
-                                //console.log(odds[0].eventid);
+                                //console.log(odds[0]);
                                 if (odds[0].eventid == eventid) {
                                     arr[obj].odd1 = odds[0].home_od;
                                     arr[obj].odd2 = odds[0].away_od;
                                 }
                             }                            
                         }
-
                         
                     }
 
-                    console.log(arr);
+                    //console.log(arr);
 
+                    return arr;
+                    
                 }
 
             })
             .catch(error => {
-                console.log(error);
-                //res.render("index", { 'tournaments': tournaments });
+                console.log(error);                
             });
-
     }
-
-     
 }
 
+async function groupData (arr) {
+
+    var groupJson = [];
+    //console.log(arr);
+    if (arr && arr.length > 0) {
+    //addOddsData(arr).then((values) => {
+
+        //    //console.log(arr);
+        //    //resolve(values);
+
+        //});
+
+
+        arr = arr.sort(compareFn);       
+        groupJson = groupBy(arr, 'tournament');       
+        //console.log(groupJson);
+        
+    }
+    return groupJson;
+    
+}
 
 async function addJsonLine(result, arr)
 {
@@ -149,30 +150,25 @@ async function addJsonLine(result, arr)
         odd1: 0,
         odd2: 0
         
-    });
-
-   
+    });   
 }
 
 async function getData(url, id) {
         
     var jsonArray = [];
-    var groupJson = [];
-   
+
     try
     {
         const response = await fetch(url, requestOptions);
-
 
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }        
 
         const data = await response.json();
-        
 
-
-        if (data) {
+        if (data)
+        {
             var r1 = jsonQuery('results', {
                 data: JSON.truncate(data, 10)
             });
@@ -180,58 +176,92 @@ async function getData(url, id) {
             
             for (i = 0; i < r1.value.length; i++) {
 
-                var result = r1.value[i];
-               
+                var result = r1.value[i];               
                 var tournament = result.league.name.split(" ").join("");
-
-                if (!tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")) {
+                if (tournamentTypeOK(tournament)) {
                     addJsonLine(result, jsonArray);
                 }
             }
-
-            if (jsonArray && jsonArray.length > 0) {
-
-                addOddsData(jsonArray);
-                jsonArray = jsonArray.sort(compareFn);
-                groupJson = groupBy(jsonArray, 'tournament');
-            }
-
-            //return jsonArray;
-            return groupJson;
+            var gdata = groupData(jsonArray);
+            return gdata;
         }
     }
 
     catch (error) {
         console.error(error.message);
     }
-
-    //if (jsonArray) {
-
-        
-    //    jsonArray = jsonArray.sort(compareFn);
-    //    groupJson = groupBy(jsonArray, 'tournament');
-    //}
-
-    //return groupJson;
 };
 
-
-
 class TennisService {
+
+    //static eventIds = [];
+    //static tournaments = [];    
+
     constructor() {
         this.getTournaments = this.getTournaments.bind(this);
+    }
+
+    static eventIds = [];
+    static tournaments = [];
+
+    static getEvents = function () {  // Public Method
+
+        return this.tournaments; 
+    };
+
+    static setEvents(t)
+    {
+        this.tournaments = t;
+    }
+
+    static seteventIds(e) {
+        this.eventIds = e;
+    }
+
+    static hasEvents = function() {  
+
+        return this.tournaments && this.tournaments.length > 0;
+    };
+     
+
+    async getEventIds() {
+
+       // var eventIds = [];
+        var tournaments = TennisService.getEvents();
+
+        if (!this.hasEvents)
+        {
+            console.log("######### EVENTS NOT FOUND #########");
+            return this.eventIds;
+        }
+        else
+        {
+            //console.log("######### GET EVENT ID #########");
+            //console.log(tournaments);
+
+            for (var key in tournaments) {
+                var valueArray = tournaments[key];
+                for (var obj in valueArray) {
+                    var val = valueArray[obj].eventId;
+                    this.eventIds.push(val);
+                    console.log("######### PUSH EVENT ID #########");
+                    console.log(val);
+                }
+            }
+        }
+
+        return this.eventIds;
     }
 
     async getTournaments(id) {
 
         return new Promise((resolve) => {
             var url = (id == 0 ? INPLAY : UPCOMING);
-            //console.log("targel url: " + url);
 
-            var events = getData(url, SPORTSID); // tennis sportsId is 13
-            //addOddsData(events);
-            //var groupJson = groupBy(events, 'tournament');
-            resolve(events);
+            var tournaments = getData(url, SPORTSID); // tennis sportsId is 13
+            //this.tournaments = tournaments;            
+
+            resolve(tournaments);
         });
     }
 }

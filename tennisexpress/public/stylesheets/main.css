@@ -70,6 +70,13 @@ div {
     margin-bottom: 0px;
 }
 
+.green {
+    color: greenyellow;
+    font-size: 12px;
+    margin-left:20px;
+    font-weight:bold;
+}
+
 .buffer {
     margin: 10px;
     margin-left: 70px;
