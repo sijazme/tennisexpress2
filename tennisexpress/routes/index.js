@@ -123,7 +123,7 @@ router.get('/', async function (req, res) {
             }
         }
 
-        console.log(tournaments);
+        //console.log(tournaments);
 
         res.render("index", { 'tournaments': tournaments });
 
