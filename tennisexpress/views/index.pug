@@ -12,8 +12,11 @@ block content
    div(class='container' id='divRender')  
     each match in key
      ul(id='matchlist')
-     li= match.player1
+     li
+     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.player1.split(' ').join(''))=match.player1
       span.odds=match.odd1
-     li= match.player2
+     li
+     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.player2.split(' ').join(''))=match.player2
       span.odds=match.odd2
+      p.odds
      li= match.time  

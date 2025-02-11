@@ -3,12 +3,7 @@
 var jsonQuery = require('json-query');
 JSON.truncate = require('json-truncate')
 
-
-// ODDS Service reference
-const service2 = require("../services/oddsservice.js");
-
 // BETS API url
-
 const UPCOMING = "https://api.b365api.com/v3/events/upcoming?sport_id=13&token=212610-grkv7alAClZ83h";
 const INPLAY = "https://api.b365api.com/v3/events/inplay?sport_id=13&token=212610-grkv7alAClZ83h";
 
