@@ -16,23 +16,8 @@ $(document).ready(function () {
 
     $('#buttonOdds').bind('click', function () {
 
-        
-        alert("call to odds service " + oddsdata != null);
-
-        //$.ajax({
-        //    method: 'GET',
-        //    url: '/',
-        //    data: { oddsdata },
-        //    headers: { }
-        //}).done(() =>
-        //{
-            
-        //    console.log(oddsdata);
-            
-        //    // window.location.href='/about';
-
-        //}).catch(e => console.log('ajax error'));
-
+        var url = '/';
+        document.location.href = url
     });
 
    
