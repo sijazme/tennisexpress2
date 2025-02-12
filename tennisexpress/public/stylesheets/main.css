@@ -65,7 +65,7 @@ div {
 
 .heading {
     color: yellow;
-    font-size: 16px;
+    font-size: 20px;
     margin-left: 90px !important;
     margin-bottom: 0px;
 }
@@ -76,6 +76,12 @@ div {
     margin-left:18px;
     font-weight:bold;
     font-family:'Cascadia Code';
+}
+
+.countdown {
+    color: hotpink;
+    font-size: 14px;
+    font-family: 'Cascadia Code';
 }
 
 .buffer {

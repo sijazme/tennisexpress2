@@ -87,9 +87,19 @@ async function addJsonLine(result, arr)
     // add time
     var moment = require('moment');
     var timestamp = parseInt(result.time);
-    var momentStyle = moment.unix(timestamp);        
-    var time = moment(momentStyle).local().format('LLLL');
+    var momentStyle = moment.unix(timestamp);
 
+    var timeStart = moment(momentStyle).local();    
+    var timenow = moment().local();
+
+    var timeStartformatted = moment(momentStyle).local().format('LLLL');
+
+    var duration = moment.duration(timeStart.diff(timenow));
+    var minutes = duration.asMinutes();
+
+    var countdown = (minutes < 0) ? "Now" : Math.floor(minutes)  + " minutes";
+
+    //console.log(minutes);
     // tournament info
     var tournament = result.league.name;
     var player1 = result.home.name;
@@ -101,7 +111,8 @@ async function addJsonLine(result, arr)
 
             arr.push({
                 eventid: eventid,
-                time: time,
+                time: timeStartformatted,
+                countdown: countdown,
                 tournament: tournament,
                 player1: player1,
                 player2: player2,
