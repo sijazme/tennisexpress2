@@ -99,42 +99,11 @@ var check = function () {
     }
 };
 
-router.get('/:id', async function (req, res) {
-        
-    const id = req.params.id;    
+async function render(res,id)
+{
     var tournaments = [];
-    
-    await service1.getTournaments(id).then(result => {
 
-            tournaments = result;
-
-            if (tournaments.length <= 0) {
-
-                console.log("no tournaments found");
-
-            }
-            else {
-
-                localizeEvents(tournaments);
-                
-                res.render("index", { 'tournaments': tournaments });
-            }
-
-        })
-        .catch(error => {
-            console.log(error);
-            res.render("index", { 'tournaments': tournaments });
-        });
-});
-
-/* GET home page. */
-router.get('/', async function (req, res) {
-
-
-    var tournaments = [];
-    const defaultId = 1;
-
-    service1.getTournaments(defaultId).then(result => {
+    service1.getTournaments(id).then(result => {
         tournaments = result;
         if (tournaments == null) {
             console.log("no tournaments found");
@@ -165,17 +134,30 @@ router.get('/', async function (req, res) {
                     console.log(error);
 
                 });
-            
-           
-        }
 
-        return tournaments;
+
+        }
+        
     })
     .catch(error => {
         console.log(error);
         //res.render("index", { 'tournaments': tournaments });
     });
-  
+
+}
+
+router.get('/:id', async function (req, res) {
+        
+    const id = req.params.id;
+    render(res,id);
+    
+});
+
+/* GET home page. */
+router.get('/', async function (req, res) {
+
+    const defaultId = 1;    
+    render(res, defaultId);
 });
 
 
