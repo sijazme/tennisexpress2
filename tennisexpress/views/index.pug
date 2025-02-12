@@ -1,7 +1,9 @@
 extends layout
 
 block content
+
   div(class='container')  
+    
     button.btn.btn-primary(type='button' id='buttonInplay') Inplay    
     button.btn.btn-secondary(type='button' id='buttonUpcoming') Upcoming
     button.btn.btn-danger(type='button' id='buttonOdds') Odds
@@ -13,10 +15,10 @@ block content
     each match in key
      ul(id='matchlist')
      li
-     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.player1.split(' ').join(''))=match.player1
+     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p1)=match.player1
       span.odds=match.odd1
      li
-     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.player2.split(' ').join(''))=match.player2
+     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p2)=match.player2
       span.odds=match.odd2
       p.odds
      li= match.time  

@@ -30,7 +30,7 @@ var groupBy = function (xs, key) {
 };
 
 var tournamentTypeOK = function (tournament) {
-    return !tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF")
+    return !tournament.endsWith("MD") && !tournament.endsWith("WD") && !tournament.startsWith("ITF");
 };
 function compareFn(a, b) {
 
@@ -58,6 +58,28 @@ async function groupData (arr) {
     
 }
 
+var playername = function (name) {
+    var firstWords = [];
+
+    var words = name.split(" ");
+    for (var key in words) {
+        if (words[key].length > 1) {
+            var strname = String(words[key]);
+
+            if (strname.length == 1) {
+                firstWords - [];
+                break;
+            }
+
+            if (strname.indexOf('/') == -1) {
+                firstWords.push(words[key]);
+            }
+        }
+    }
+
+    return firstWords.join('');
+};
+
 async function addJsonLine(result, arr)
 {
     var eventid = parseInt(result.id);
@@ -72,17 +94,24 @@ async function addJsonLine(result, arr)
     var tournament = result.league.name;
     var player1 = result.home.name;
     var player2 = result.away.name;
+    var p1 = playername(player1);
+    var p2 = playername(player2);
 
-    arr.push({
-        eventid: eventid,
-        time: time,
-        tournament: tournament,
-        player1: player1,
-        player2: player2,
-        odd1: '',
-        odd2: ''
+    if (p1 && p2) {
+
+            arr.push({
+                eventid: eventid,
+                time: time,
+                tournament: tournament,
+                player1: player1,
+                player2: player2,
+                p1: p1,
+                p2: p2,
+                odd1: '',
+                odd2: ''
         
-    });   
+            });   
+    }
 }
 
 async function getData(url, id) {
@@ -114,7 +143,9 @@ async function getData(url, id) {
                     addJsonLine(result, jsonArray);
                 }
             }
-            var gdata = groupData(jsonArray);
+
+            var arr = sortTournaments(jsonArray);
+            var gdata = groupData(arr);
             return gdata;
         }
     }
@@ -123,6 +154,38 @@ async function getData(url, id) {
         console.error(error.message);
     }
 };
+
+function sortTournaments(jsonArray) {
+    var wta = [];
+    var atp = [];
+    var others = [];
+
+    for(var key in jsonArray)
+    {
+        var obj = jsonArray[key];
+
+        if (obj.tournament.startsWith("WTA"))
+        {
+            wta.push(obj);
+        }
+
+        else if (obj.tournament.startsWith("ATP")) {
+            atp.push(obj);
+        }
+
+        else  {
+            others.push(obj);
+        }
+    }
+
+    var arr = wta.concat(atp).concat(others);
+
+    //console.log(arr);
+
+    return arr;
+
+
+}
 
 class TennisService {
     constructor() {

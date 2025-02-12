@@ -19,6 +19,7 @@ $(document).ready(function () {
         var url = '/';
         document.location.href = url
     });
-
    
 });
+
+
