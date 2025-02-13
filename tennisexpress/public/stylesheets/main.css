@@ -44,8 +44,7 @@ img {
 
 p {
     font-family: Consolas;
-    font-size: 10px;
-    margin-left: 70px;
+    font-size: 10px;    
 }
 
 div {
@@ -79,9 +78,18 @@ div {
 }
 
 .countdown {
-    color: hotpink;
-    font-size: 14px;
+    color: cornflowerblue;
+    font-size: 18px;
     font-family: 'Cascadia Code';
+}
+
+.console {
+    color: white;
+    background-color: black;
+    font-size: 12px;
+    font-family: 'Cascadia Code';
+    margin-left: 90px !important;
+    width:600px;
 }
 
 .buffer {

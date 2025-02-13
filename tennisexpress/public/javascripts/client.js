@@ -19,7 +19,37 @@ $(document).ready(function () {
         var url = '/';
         document.location.href = url
     });
+
+    countdown();
    
 });
 
+function countdown() {
+    var $timestamps = $(".timestamp");
 
+    $timestamps.each(function (i, current) {
+        var timestamp = $(current).attr('id');
+        var text = $(current).text();
+        var eventTime = timestamp; 
+        var currentTime = Math.floor(Date.now() / 1000);
+        var diffTime = eventTime - currentTime;
+        var duration = moment.duration(diffTime * 1000, 'milliseconds');
+        var interval = 1000;
+
+        //print(currentTime);
+
+        if (duration) {
+            setInterval(function () {
+                duration = moment.duration(duration - interval, 'milliseconds');
+                $(current).text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+            }, interval);
+        }
+
+    });
+}
+
+function print(str)
+{
+    var consoletext = $('#console').text();
+    $('#console').text(consoletext + ' ' + str);
+}

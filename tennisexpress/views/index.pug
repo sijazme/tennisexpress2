@@ -9,6 +9,7 @@ block content
     button.btn.btn-danger(type='button' id='buttonOdds') Odds
   
   div(class='buffer')
+  div(class='console' id='console')
   each key in tournaments
    p(class='heading')= key[0].tournament
    div(class='container' id='divRender')  
@@ -21,4 +22,7 @@ block content
      a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p2)=match.player2
       span.odds=match.odd2
       p.odds
-     li(class='countdown')= match.countdown
+     li(class='countdown')
+      p(id=match.timestamp class='timestamp')=match.countdown
+
+      

@@ -99,8 +99,7 @@ async function addJsonLine(result, arr)
 
     var countdown = (minutes < 0) ? "Now" : Math.floor(minutes)  + " minutes";
 
-    //console.log(minutes);
-    // tournament info
+    
     var tournament = result.league.name;
     var player1 = result.home.name;
     var player2 = result.away.name;
@@ -112,6 +111,7 @@ async function addJsonLine(result, arr)
             arr.push({
                 eventid: eventid,
                 time: timeStartformatted,
+                timestamp: timestamp,
                 countdown: countdown,
                 tournament: tournament,
                 player1: player1,
