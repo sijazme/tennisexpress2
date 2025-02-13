@@ -29,7 +29,7 @@ function countdown() {
 
     $timestamps.each(function (i, current) {
         var timestamp = $(current).attr('id');
-        var text = $(current).text();
+        //var text = $(current).text();
         var eventTime = timestamp; 
         var currentTime = Math.floor(Date.now() / 1000);
         var diffTime = eventTime - currentTime;
