@@ -21,8 +21,60 @@ $(document).ready(function () {
     });
 
     countdown();
+    getOddsLive();
    
 });
+
+function getOddsLive() {
+
+    var $timestamps = $(".timestamp");
+    var eventids = [];
+
+    $timestamps.each(function (i, current) {
+
+        var eventid = $(current).attr('eventid');
+
+        //eventids.push(eventid);
+
+        eventids.push(parseInt(eventid));
+    });
+
+    //print(eventids);
+
+    //$.ajax({
+    //    type: "GET",
+    //    url: '/odds',
+    //    dataType: 'json',
+    //    data: JSON.stringify(eventids),
+    //    success: function (data) {
+    //        alert(data);
+    //    }
+    //});
+
+    //$.get("/odds", function (data, status) {
+    //    alert("Data: " + data + "\nStatus: " + status);
+    //});
+
+    //var data = JSON.stringify(eventids);
+
+    //$.post("/odds", jsonData,
+    //    function (data, status) {
+    //        alert("Data: " + data + "\nStatus: " + status);
+    //    });
+
+    $.ajax({
+        type: "POST",
+        url: "/odds",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(eventids),
+        success: function (result) {
+            alert(result.success); // result is an object which is created from the returned JSON
+        },
+    });
+
+}
+
 
 function countdown() {
     var $timestamps = $(".timestamp");
@@ -62,5 +114,15 @@ function countdown() {
 function print(str)
 {
     var consoletext = $('#console').text();
-    $('#console').text(consoletext + ' ' + str);
+
+    if (typeof str == 'string') {
+    
+        $('#console').text(consoletext + ' ' + str + ' ');
+    }
+    else {        
+        var obj = str;
+        for (var key in obj) {
+            $('#console').text(consoletext + ' ' + obj[key] + ' ');
+        }
+    }
 }

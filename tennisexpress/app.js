@@ -6,7 +6,9 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var routes = require('./routes/index');
+var routes2 = require('./routes/odds');
 
 var favicon = require('serve-favicon');
 var fetch = require('node-fetch');
@@ -31,12 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 //app.use('/services', express.static('services'));
 
-
-
-
-
-//app.use('/:id', routes);
+app.use('/odds', routes2);
 app.use('/', routes);
+
 
 
 // catch 404 and forward to error handler
