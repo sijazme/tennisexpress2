@@ -10,35 +10,6 @@ const service2 = require("../services/oddsservice.js");
 var eventIds = [];
 var events = [];
 
-
-function addOddsData() {
-
-    console.log(eventIds);
-
-     service2.getAllOdds(eventIds).then(result => {
-        var oddsdata = result;
-
-        if (events && events.length <= 0) {
-            console.log("service1 has not finished getting tournament data");
-        }
-
-        else {
-            if (oddsdata == null || oddsdata === undefined || oddsdata.length <= 0) {
-                console.log('odds data empty');
-            }
-            else {
-                //mapOdds(oddsdata);
-                return oddsdata;
-            }
-        }
-
-    })
-    .catch(error => {
-        console.log(error);
-
-    });
-}
-
 async function getTournaments() {
 
     var tournaments = [];
@@ -125,15 +96,15 @@ async function render(res,id)
                     }
                     else {
                         mapOdds(oddsdata);
-                        res.render("index", { 'tournaments': tournaments });
+                        res.render("index", { 'tournaments': tournaments });                     
                     }
                 }
 
             })
-                .catch(error => {
-                    console.log(error);
+            .catch(error => {
+                console.log(error);
 
-                });
+            });
 
 
         }
@@ -141,7 +112,6 @@ async function render(res,id)
     })
     .catch(error => {
         console.log(error);
-        //res.render("index", { 'tournaments': tournaments });
     });
 
 }

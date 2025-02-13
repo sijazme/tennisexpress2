@@ -162,7 +162,7 @@ async function getData(url, id) {
     }
 
     catch (error) {
-        console.error(error.message);
+        console.error(error);
     }
 };
 
