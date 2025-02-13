@@ -77,16 +77,17 @@ div {
     font-family:'Cascadia Code';
 }
 
-.countdown {
+
+.timestamp {
     color: cornflowerblue;
-    font-size: 18px;
+    font-size: 14px;
     font-family: 'Cascadia Code';
 }
 
+
 .console {
     color: white;
-    background-color: black;
-    font-size: 12px;
+    background-color: black;  
     font-family: 'Cascadia Code';
     margin-left: 90px !important;
     width:600px;

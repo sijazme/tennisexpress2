@@ -40,8 +40,19 @@ function countdown() {
 
         if (duration) {
             setInterval(function () {
+
                 duration = moment.duration(duration - interval, 'milliseconds');
-                $(current).text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+
+                var hours = duration.hours();
+                var minutes = duration.minutes();
+                var seconds = duration.seconds();
+
+                if (parseInt(seconds) < 0) {
+                    $(current).text('');
+                }
+                else {
+                    $(current).text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+                }
             }, interval);
         }
 
