@@ -4,54 +4,53 @@ var router = express.Router();
 
 // service references
 const service2 = require("../services/oddsservice.js");
-var events = [];
+var oddsjson = [];
 
-function mapOdds(oddsdata) {
-    // MAP ODDS to EVENTS
+async function mapOdds(oddsdata, eventids) {
 
-    var eventids = [];
-    for (var eventid in eventids) {       
+    oddsjson = [];
+    //console.log(eventids);
 
+    for (var i = 0; i < eventids.length; i++)
+    {
         for (var key in oddsdata) {
             var odds = oddsdata[key];
+           
+            if (odds && odds[0] && odds[0].eventid) {
 
-            if (odds && odds[0].eventid == eventid) {
-                //events[obj].odd1 = odds[0].home_od;
-                //events[obj].odd2 = odds[0].away_od;
+                var data = odds[0];
 
-                events.push({
-                    eventid: eventid,                    
-                    odd1: odds[0].home_od,
-                    odd2: odds[0].away_od
+                if (data.eventid == eventids[i]) {
+                    //console.log(data);
 
-                });
+                    oddsjson.push({
+                        eventid: data.eventid,
+                        odd1: data.home_od,
+                        odd2: data.away_od
+                    });
+                }
             }
         }
     }
 
-    console.log(events);
+    //console.log(oddsjson);
+    return oddsjson;
 }
 
-function getOddsData(eventids) {
+async function getOddsData(eventids) {
     
-    service2.getAllOdds(eventIds).then(result => {
+    await service2.getAllOdds(eventids).then(result => {
+
         var oddsdata = result;
-        console.log(oddsdata);
-        if (events && events.length <= 0) {
-            console.log("service1 has not finished getting tournament data");
-        }
 
-        else {
-            if (oddsdata == null || oddsdata === undefined || oddsdata.length <= 0) {
-                console.log('odds data empty');
-            }
-            else {
-                mapOdds(oddsdata);
-                return oddsdata;            }
-        }
+        mapOdds(oddsdata, eventids).then(result => {
+            //console.log(result);
+            return result;
+            })
+        .catch(error => {
+                console.log(error);
 
-       
-
+            });
     })
     .catch(error => {
         console.log(error);
@@ -60,20 +59,17 @@ function getOddsData(eventids) {
 }
 
 
-router.post('/', function (req, res) {
-
-    //const eventids = req.body;
-    //console.log(" ODDS ROUTE FOUND!!! ");
+router.post('/', async function (req, res) {
 
     const eventids = JSON.parse(JSON.stringify(req.body));
-    
-
+    //console.log(eventids);
     if (eventids)
     {
-        console.log(eventids);
-        var oddsdata =  getOddsData(eventids);
-        
-        res.json(oddsdata);
+        return new Promise((resolve) => {
+
+            var oddsdata = getOddsData(eventids);            
+            resolve(oddsdata);
+        });
 
     }
     else {
@@ -81,7 +77,6 @@ router.post('/', function (req, res) {
         res.status(400).send({
             message: 'event ids data not found!!!'
         });
-
     }
     
 });
