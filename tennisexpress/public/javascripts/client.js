@@ -1,7 +1,7 @@
 
 var refreshIntervalId = 0;
 
-const INTERVAL = 60000;
+const INTERVAL = 20000;
 
 $(document).ready(function () {
 
@@ -168,7 +168,7 @@ function countdown() {
                 var minutes = duration.minutes();
                 var seconds = duration.seconds();
 
-                if (parseInt(seconds) < 0) {
+                if (parseInt(minutes) < 0) {
                     $(current).text('');
                     $(current).text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
                 }
