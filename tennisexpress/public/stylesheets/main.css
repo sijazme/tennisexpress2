@@ -64,7 +64,8 @@ div {
 
 .update {
     margin-left: 400px !important;
-    color:yellow;
+    color:white;
+    font-size:14px;
 }
 
 .heading {
@@ -87,6 +88,7 @@ div {
     color: orange;
     font-size: 14px;
     font-family: 'Cascadia Code';
+    margin-top: 10px;
 }
 
 

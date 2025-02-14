@@ -6,7 +6,7 @@ block content
     
     button.btn.btn-primary(type='button' id='buttonInplay') Inplay    
     button.btn.btn-secondary(type='button' id='buttonUpcoming') Upcoming
-    button.btn.btn-danger(type='button' id='buttonOdds') Odds
+    button.btn.btn-danger(type='button' id='buttonOdds') Odds update
   
   p(id='lastupdate' class='update')
   div(class='console' id='console')
@@ -20,9 +20,6 @@ block content
       span(class='odds' id=match.eventid + '.1')=match.odd1
      li
      a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p2)=match.player2
-      span(class='odds' id=match.eventid + '.2')=match.odd2
-      
-     li(class='countdown')
+      span(class='odds' id=match.eventid + '.2')=match.odd2      
+     li()
       p(id=match.timestamp class='timestamp' eventid=match.eventid)
-
-      

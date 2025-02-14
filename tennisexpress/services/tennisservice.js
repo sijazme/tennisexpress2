@@ -134,7 +134,7 @@ async function getData(url, id) {
         const response = await fetch(url, requestOptions);
 
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            throw new Error(`TOO MANY REQUESTS TO BETS API, response : ${response.status}`);
         }        
 
         const data = await response.json();

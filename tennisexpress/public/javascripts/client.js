@@ -16,8 +16,9 @@ $(document).ready(function () {
 
     $('#buttonOdds').bind('click', function () {
 
-        var url = '/';
-        document.location.href = url
+        renderOddsLive();
+        //var url = '/';
+        //document.location.href = url
     });
 
     countdown();
@@ -28,7 +29,7 @@ $(document).ready(function () {
 
 function refereshOdds() {
 
-    var interval = 60000;
+    var interval = 60000; // 1 minute refresh
 
     setInterval(function () {
         renderOddsLive();
@@ -36,7 +37,7 @@ function refereshOdds() {
 }
 function renderOddsLive() {
 
-    $("#lastupdate").text(moment().format('HH:mm:ss'));
+    $("#lastupdate").text(moment().format('YYYY-MM-DD HH:mm:ss'));
     
     var $timestamps = $(".timestamp");
     var eventids = [];
@@ -68,8 +69,18 @@ function renderOddsLive() {
     });
 
 }
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
 function bindOdds(oddsdata) {
+
+    var color = getRandomColor();
 
     for (var key in oddsdata)
     {
@@ -82,17 +93,18 @@ function bindOdds(oddsdata) {
         $odds.each(function (i, current) {
 
             var eventid_ = $(current).attr('id');
+            
             //print(eventid_);
             if (eventid_ == eventid + '.1') {
                 console.log(odd1);
                 $(current).text(odd1);
-                $(current).css('color', 'red');
+                $(current).css('color', color);
             }
 
             else if (eventid_ == eventid + '.2') {
                 console.log(odd2);
                 $(current).text(odd2);
-                $(current).css('color', 'red');
+                $(current).css('color', color);
             }
         });
     };
