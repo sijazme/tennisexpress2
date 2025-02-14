@@ -6,7 +6,6 @@ var router = express.Router();
 const service1 = require("../services/tennisservice.js");
 const service2 = require("../services/oddsservice.js");
 
-
 var eventIds = [];
 var events = [];
 
@@ -82,31 +81,7 @@ async function render(res,id)
         else {
 
             localizeEvents(tournaments);
-            res.render("index", { 'tournaments': tournaments }); 
-            //service2.getAllOdds(eventIds).then(result => {
-            //    var oddsdata = result;
-
-            //    if (events && events.length <= 0) {
-            //        console.log("service1 has not finished getting tournament data");
-            //    }
-
-            //    else {
-            //        if (oddsdata == null || oddsdata === undefined || oddsdata.length <= 0) {
-            //            console.log('odds data empty');
-            //        }
-            //        else {
-            //            mapOdds(oddsdata);
-            //            res.render("index", { 'tournaments': tournaments });                     
-            //        }
-            //    }
-
-            //})
-            //.catch(error => {
-            //    console.log(error);
-
-            //});
-
-
+            res.render("index", { 'tournaments': tournaments });
         }
         
     })

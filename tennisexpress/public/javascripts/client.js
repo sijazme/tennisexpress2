@@ -134,6 +134,7 @@ function countdown() {
 
                 if (parseInt(seconds) < 0) {
                     $(current).text('');
+                    $(current).text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
                 }
                 else {
                     $(current).text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());

@@ -58,14 +58,15 @@ div {
 }
 
 .container {
-    
     margin-left: 70px !important;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .update {
     margin-left: 400px !important;
-    color:white;
-    font-size:14px;
+    color: white;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .heading {
@@ -73,14 +74,15 @@ div {
     font-size: 20px;
     margin-left: 90px !important;
     margin-bottom: 0px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .odds {
     color: greenyellow;
     font-size: 14px;
-    margin-left:18px;
-    font-weight:bold;
-    font-family:'Cascadia Code';
+    margin-left: 18px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 
