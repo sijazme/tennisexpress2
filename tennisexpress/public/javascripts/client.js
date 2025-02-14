@@ -28,8 +28,9 @@ $(document).ready(function () {
     countdown();
     renderOddsLive();
 
- 
-    
+    if (isInplay()) {
+        refereshOdds(10000);
+    }
 });
 
 function setImage() {
@@ -41,7 +42,7 @@ function setImage() {
     }
     if (isInplay()) { // inplay
         $("#img_status").attr("src", "../images/inplay.jpg");
-        refereshOdds();
+        refereshOdds(10000);
     }
 }
 
@@ -57,9 +58,7 @@ function isInplay() {
     return url.endsWith('0');
 }
 
-function refereshOdds() {
-
-    var interval = 60000; // 1 minute refresh
+function refereshOdds(interval) {
 
     setInterval(function () {
         renderOddsLive();
