@@ -4,13 +4,14 @@ var requestType = 1;
 $(document).ready(function () {
 
     $('#buttonInplay').bind('click', function () {
+        $("#img_status").attr("src", "")
         var url = '/0';
         document.location.href = url;
     });
 
 
     $('#buttonUpcoming').bind('click', function () {
-               
+        $("#img_status").attr("src", "")
         var url = '/1';
         document.location.href = url;     
 
@@ -23,8 +24,15 @@ $(document).ready(function () {
         //document.location.href = url
     });
 
+    setImage();
     countdown();
     renderOddsLive();
+
+ 
+    
+});
+
+function setImage() {
 
     $("#img_status").attr("src", "../images/upcoming.jpg");
 
@@ -35,8 +43,7 @@ $(document).ready(function () {
         $("#img_status").attr("src", "../images/inplay.jpg");
         refereshOdds();
     }
-    
-});
+}
 
 function isUpcoming() {
         
