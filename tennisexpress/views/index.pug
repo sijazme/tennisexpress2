@@ -7,8 +7,9 @@ block content
     button.btn.btn-primary(type='button' id='buttonInplay') Inplay    
     button.btn.btn-secondary(type='button' id='buttonUpcoming') Upcoming
     button.btn.btn-danger(type='button' id='buttonOdds') Odds update
+    span(id='lastupdate' class='update')
   
-  p(id='lastupdate' class='update')
+  
   div(class='console' id='console')
   each key in tournaments
    p(class='heading')= key[0].tournament

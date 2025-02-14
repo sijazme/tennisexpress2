@@ -26,10 +26,12 @@ $(document).ready(function () {
     countdown();
     renderOddsLive();
 
+    $("#img_status").attr("src", "../images/upcoming.jpg");
+
     if (isUpcoming()) {
         $("#img_status").attr("src", "../images/upcoming.jpg");
     }
-    else if (isInplay) { // inplay
+    if (isInplay()) { // inplay
         $("#img_status").attr("src", "../images/inplay.jpg");
         refereshOdds();
     }
