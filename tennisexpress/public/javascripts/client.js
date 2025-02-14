@@ -1,5 +1,7 @@
 
-var requestType = 1;
+var refreshIntervalId = 0;
+
+const INTERVAL = 60000;
 
 $(document).ready(function () {
 
@@ -29,7 +31,8 @@ $(document).ready(function () {
     renderOddsLive();
 
     if (isInplay()) {
-        refereshOdds(10000);
+       
+        refereshOdds(INTERVAL);  // 30 seconds
     }
 });
 
@@ -53,14 +56,17 @@ function isUpcoming() {
 }
 
 function isInplay() {
-
     var url = String(window.location);
     return url.endsWith('0');
 }
 
 function refereshOdds(interval) {
 
-    setInterval(function () {
+    if (refreshIntervalId > 0) {
+        clearInterval(refreshIntervalId);
+    }
+
+    refreshIntervalId = setInterval(function () {
         renderOddsLive();
     }, interval);
 }
@@ -89,7 +95,8 @@ function renderOddsLive() {
                 bindOdds(result);
             }
             else {
-                //alert('JSON odds data not found!');
+                print('JSON odds data not found! Too many requests to BETS API.');
+                clearInterval(refreshIntervalId);
             }
         },
         error: function (XMLHttpRequest, textStatus, error) {
@@ -125,13 +132,13 @@ function bindOdds(oddsdata) {
             
             //print(eventid_);
             if (eventid_ == eventid + '.1') {
-                console.log(odd1);
+                //console.log(odd1);
                 $(current).text(odd1);
                 $(current).css('color', color);
             }
 
             else if (eventid_ == eventid + '.2') {
-                console.log(odd2);
+                //console.log(odd2);
                 $(current).text(odd2);
                 $(current).css('color', color);
             }
