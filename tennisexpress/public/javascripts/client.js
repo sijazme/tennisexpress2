@@ -35,6 +35,25 @@ function getOddsLive() {
         eventids.push(parseInt(eventid));
     });
 
+    //(async () => {
+
+        
+    //    const rawResponse = await fetch('/odds', {
+    //        method: 'POST',
+    //        headers: {
+    //            'Accept': 'application/json',
+    //            'Content-Type': 'application/json'
+    //        },
+    //        body: JSON.stringify(eventids)
+    //    });
+
+        
+    //    const content = await rawResponse.json();
+        
+        
+    //})();
+
+
     $.ajax({
         type: "POST",
         url: "/odds",
@@ -42,7 +61,12 @@ function getOddsLive() {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(eventids),
         success: function (result) {
-            alert('success');
+            if (result && result.length > 0) {
+                //print(result);
+            }
+            else {
+                alert('JSON odds data not found!');
+            }
         },
         error: function (XMLHttpRequest, textStatus, error) {
             alert(error);
@@ -93,10 +117,11 @@ function print(str)
     
         $('#console').text(consoletext + ' ' + str + ' ');
     }
-    else {        
-        var obj = str;
-        for (var key in obj) {
-            $('#console').text(consoletext + ' ' + obj[key] + ' ');
+    else if (typeof str == 'object') 
+        {
+            var obj = str;
+            var str1 = JSON.stringify(obj);
+            str1 = JSON.stringify(obj, null, 4); // (Optional) beautiful indented output.            
+            $('#console').text(consoletext + ' ' + str1 + ' ');
         }
-    }
 }

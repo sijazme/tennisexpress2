@@ -4,11 +4,10 @@ var router = express.Router();
 
 // service references
 const service2 = require("../services/oddsservice.js");
-var oddsjson = [];
 
-async function mapOdds(oddsdata, eventids) {
+function mapOdds(oddsdata, eventids) {
 
-    oddsjson = [];
+    var oddsjson = [];
     //console.log(eventids);
 
     for (var i = 0; i < eventids.length; i++)
@@ -38,26 +37,23 @@ async function mapOdds(oddsdata, eventids) {
 }
 
 async function getOddsData(eventids) {
-    
-    await service2.getAllOdds(eventids).then(result => {
+
+    var data = [];
+
+     await service2.getAllOdds(eventids).then(result => {
 
         var oddsdata = result;
-
-        mapOdds(oddsdata, eventids).then(result => {
-            //console.log(result);
-            return result;
-            })
-        .catch(error => {
-                console.log(error);
-
-            });
+        data = mapOdds(oddsdata, eventids);
+        //console.log(data);
+        //return data;
     })
     .catch(error => {
         console.log(error);
 
     });
-}
 
+    return data;
+}
 
 router.post('/', async function (req, res) {
 
@@ -65,13 +61,17 @@ router.post('/', async function (req, res) {
     //console.log(eventids);
     if (eventids)
     {
-        return new Promise((resolve) => {
 
-            var oddsdata = getOddsData(eventids);            
-            resolve(oddsdata);
+        getOddsData(eventids).then(result =>
+        {
+            //console.log(result);
+            res.json(result);
+        })
+        .catch(error => {
+            console.log(error);
+
         });
-
-    }
+    }    
     else {
 
         res.status(400).send({
