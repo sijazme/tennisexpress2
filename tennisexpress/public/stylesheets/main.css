@@ -123,6 +123,8 @@ div {
     border: 2px solid red;
 }
 
-.inplayButton{
-
+.imgstatus {
+    max-width: 100%;
+    height: auto;
+    margin-left: 0px;
 }

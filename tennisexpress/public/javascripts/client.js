@@ -1,4 +1,6 @@
 
+var requestType = 1;
+
 $(document).ready(function () {
 
     $('#buttonInplay').bind('click', function () {
@@ -23,9 +25,28 @@ $(document).ready(function () {
 
     countdown();
     renderOddsLive();
-    refereshOdds();
-   
+
+    if (isUpcoming()) {
+        $("#img_status").attr("src", "../images/upcoming.jpg");
+    }
+    else if (isInplay) { // inplay
+        $("#img_status").attr("src", "../images/inplay.jpg");
+        refereshOdds();
+    }
+    
 });
+
+function isUpcoming() {
+        
+    var url = String(window.location);    
+    return url.endsWith('1');
+}
+
+function isInplay() {
+
+    var url = String(window.location);
+    return url.endsWith('0');
+}
 
 function refereshOdds() {
 
@@ -60,7 +81,7 @@ function renderOddsLive() {
                 bindOdds(result);
             }
             else {
-                alert('JSON odds data not found!');
+                //alert('JSON odds data not found!');
             }
         },
         error: function (XMLHttpRequest, textStatus, error) {

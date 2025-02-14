@@ -94,6 +94,7 @@ async function render(res,id)
 router.get('/:id', async function (req, res) {
         
     const id = req.params.id;
+    
     render(res,id);
     
 });
@@ -101,7 +102,8 @@ router.get('/:id', async function (req, res) {
 /* GET home page. */
 router.get('/', async function (req, res) {
 
-    const defaultId = 1;    
+    const defaultId = 1;
+    
     render(res, defaultId);
 });
 

@@ -43,9 +43,7 @@ async function getOddsData(eventids) {
      await service2.getAllOdds(eventids).then(result => {
 
         var oddsdata = result;
-        data = mapOdds(oddsdata, eventids);
-        //console.log(data);
-        //return data;
+        data = mapOdds(oddsdata, eventids);        
     })
     .catch(error => {
         console.log(error);
