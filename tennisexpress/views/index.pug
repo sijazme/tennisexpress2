@@ -8,7 +8,7 @@ block content
     button.btn.btn-secondary(type='button' id='buttonUpcoming') Upcoming
     button.btn.btn-danger(type='button' id='buttonOdds') Odds
   
-  div(class='buffer')
+  p(id='lastupdate' class='update')
   div(class='console' id='console')
   each key in tournaments
    p(class='heading')= key[0].tournament
@@ -17,11 +17,11 @@ block content
      ul(id='matchlist')
      li
      a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p1)=match.player1
-      span.odds=match.odd1
+      span(class='odds' id=match.eventid + '.1')=match.odd1
      li
      a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p2)=match.player2
-      span.odds=match.odd2
-      p.odds
+      span(class='odds' id=match.eventid + '.2')=match.odd2
+      
      li(class='countdown')
       p(id=match.timestamp class='timestamp' eventid=match.eventid)
 

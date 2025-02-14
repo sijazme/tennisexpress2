@@ -61,7 +61,6 @@ router.post('/', async function (req, res) {
     //console.log(eventids);
     if (eventids)
     {
-
         getOddsData(eventids).then(result =>
         {
             //console.log(result);

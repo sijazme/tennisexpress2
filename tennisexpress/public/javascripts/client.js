@@ -21,12 +21,23 @@ $(document).ready(function () {
     });
 
     countdown();
-    getOddsLive();
+    renderOddsLive();
+    refereshOdds();
    
 });
 
-function getOddsLive() {
+function refereshOdds() {
 
+    var interval = 60000;
+
+    setInterval(function () {
+        renderOddsLive();
+    }, interval);
+}
+function renderOddsLive() {
+
+    $("#lastupdate").text(moment().format('HH:mm:ss'));
+    
     var $timestamps = $(".timestamp");
     var eventids = [];
 
@@ -34,25 +45,7 @@ function getOddsLive() {
         var eventid = $(current).attr('eventid');
         eventids.push(parseInt(eventid));
     });
-
-    //(async () => {
-
-        
-    //    const rawResponse = await fetch('/odds', {
-    //        method: 'POST',
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(eventids)
-    //    });
-
-        
-    //    const content = await rawResponse.json();
-        
-        
-    //})();
-
+       
 
     $.ajax({
         type: "POST",
@@ -63,6 +56,7 @@ function getOddsLive() {
         success: function (result) {
             if (result && result.length > 0) {
                 //print(result);
+                bindOdds(result);
             }
             else {
                 alert('JSON odds data not found!');
@@ -73,6 +67,35 @@ function getOddsLive() {
         }
     });
 
+}
+
+function bindOdds(oddsdata) {
+
+    for (var key in oddsdata)
+    {
+        var odds = oddsdata[key];
+        var eventid = odds.eventid;
+        var odd1 = odds.odd1;
+        var odd2 = odds.odd2;
+        
+        var $odds = $(".odds");
+        $odds.each(function (i, current) {
+
+            var eventid_ = $(current).attr('id');
+            //print(eventid_);
+            if (eventid_ == eventid + '.1') {
+                console.log(odd1);
+                $(current).text(odd1);
+                $(current).css('color', 'red');
+            }
+
+            else if (eventid_ == eventid + '.2') {
+                console.log(odd2);
+                $(current).text(odd2);
+                $(current).css('color', 'red');
+            }
+        });
+    };
 }
 function countdown() {
     var $timestamps = $(".timestamp");

@@ -82,29 +82,29 @@ async function render(res,id)
         else {
 
             localizeEvents(tournaments);
+            res.render("index", { 'tournaments': tournaments }); 
+            //service2.getAllOdds(eventIds).then(result => {
+            //    var oddsdata = result;
 
-            service2.getAllOdds(eventIds).then(result => {
-                var oddsdata = result;
+            //    if (events && events.length <= 0) {
+            //        console.log("service1 has not finished getting tournament data");
+            //    }
 
-                if (events && events.length <= 0) {
-                    console.log("service1 has not finished getting tournament data");
-                }
+            //    else {
+            //        if (oddsdata == null || oddsdata === undefined || oddsdata.length <= 0) {
+            //            console.log('odds data empty');
+            //        }
+            //        else {
+            //            mapOdds(oddsdata);
+            //            res.render("index", { 'tournaments': tournaments });                     
+            //        }
+            //    }
 
-                else {
-                    if (oddsdata == null || oddsdata === undefined || oddsdata.length <= 0) {
-                        console.log('odds data empty');
-                    }
-                    else {
-                        mapOdds(oddsdata);
-                        res.render("index", { 'tournaments': tournaments });                     
-                    }
-                }
+            //})
+            //.catch(error => {
+            //    console.log(error);
 
-            })
-            .catch(error => {
-                console.log(error);
-
-            });
+            //});
 
 
         }
