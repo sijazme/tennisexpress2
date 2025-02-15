@@ -36,16 +36,19 @@ $(document).ready(function () {
     }
 });
 
-function setImage() {
-
-    $("#img_status").attr("src", "../images/upcoming.jpg");
+function setImage() {     
 
     if (isUpcoming()) {
         $("#img_status").attr("src", "../images/upcoming.jpg");
     }
-    if (isInplay()) { // inplay
+    else if (isInplay()) { // inplay
         $("#img_status").attr("src", "../images/inplay.jpg");
         refereshOdds(10000);
+    }
+    else {
+
+        $("#img_status").attr("src", "");
+        $("#img_status").attr("src", "../images/upcoming.jpg");
     }
 }
 
@@ -95,12 +98,12 @@ function renderOddsLive() {
                 bindOdds(result);
             }
             else {
-                print('JSON odds data not found! Too many requests to BETS API.');
+                print('POST failed : Too many requests to BETS API.');
                 clearInterval(refreshIntervalId);
             }
         },
         error: function (XMLHttpRequest, textStatus, error) {
-            alert(error);
+            print(error);
         }
     });
 
@@ -158,6 +161,7 @@ function countdown() {
         var interval = 1000;
 
         //print(currentTime);
+        $(current).text('');
 
         if (duration) {
             setInterval(function () {
@@ -168,8 +172,8 @@ function countdown() {
                 var minutes = duration.minutes();
                 var seconds = duration.seconds();
 
-                if (parseInt(minutes) < 0) {
-                    $(current).text('');
+                if (parseInt(hours) < 0 || parseInt(minutes) < 0) {
+                    
                     $(current).text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
                 }
                 else {
