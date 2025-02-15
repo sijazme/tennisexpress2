@@ -106,6 +106,8 @@ async function addJsonLine(result, arr)
     var p1 = playername(player1);
     var p2 = playername(player2);
 
+    
+
     if (p1 && p2) {
 
             arr.push({
@@ -148,7 +150,7 @@ async function getData(url, id) {
             
             for (i = 0; i < r1.value.length; i++) {
 
-                var result = r1.value[i];               
+                var result = r1.value[i];                
                 var tournament = result.league.name.split(" ").join("");
                 if (tournamentTypeOK(tournament)) {
                     addJsonLine(result, jsonArray);
