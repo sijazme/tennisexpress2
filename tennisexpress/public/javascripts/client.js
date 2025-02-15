@@ -117,9 +117,18 @@ function getRandomColor() {
     return color;
 }
 
+function getColor()
+{
+    const colors = ["#FF66FF", "#FF6633", "#FF3300", "#66CC00", "#66FF00", "#FFCC00", "#FF3300", "#9900FF"];
+    var max = colors.length;
+    var index = Math.random() * max | 0;
+    return colors[index];
+
+}
+
 function bindOdds(oddsdata) {
 
-    var color = getRandomColor();
+    var color = getColor();
 
     for (var key in oddsdata)
     {
