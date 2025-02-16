@@ -8,7 +8,7 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js')
     script(src='/javascripts/client.js')
   body
-    img(src='../images/banner.jpg' )
-    img(src='../images/upcoming.jpg' id='img_status' class='imgstatus')
+    img(rel="preload" src='../images/banner.jpg' )
+    img(rel="preload" src='../images/upcoming.jpg' id='img_status' class='imgstatus')
 
     block content
