@@ -1,6 +1,6 @@
 
 var refreshIntervalId = 0;
-const INTERVAL = 30000;
+const INTERVAL = 20000;
 
 $(document).ready(function () {
 
@@ -52,7 +52,6 @@ function setImage() {
         $("#img_status").attr("src", "../images/upcoming.jpg");
     }
 }
-
 function isUpcoming() {
         
     var url = String(window.location);    
@@ -63,7 +62,6 @@ function isInplay() {
     var url = String(window.location);
     return url.endsWith('0');
 }
-
 function setOddsTimer(interval) {
 
     if (refreshIntervalId > 0) {
@@ -179,12 +177,12 @@ function setHours(duration, element) {
         var minutes = duration.minutes();
         var seconds = duration.seconds();
 
-        if (parseInt(hours) < 0 || parseInt(minutes) < 0) {
+        if (parseInt(hours) < 0 || parseInt(minutes) < 0 || parseInt(seconds) < 0) {
 
             element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
         }
         else {
-            element.text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+            element.text(hours + ":" + minutes + ":" + seconds);
         }
     }, interval);
 }
