@@ -87,7 +87,8 @@ function renderOddsLive() {
 
     if (eventids.length <= 0) {
 
-        print('No events are inplay');
+        print('No events are inplay.');
+        clearInterval(refreshIntervalId);
         // no tennis events are inplay
     }
 
