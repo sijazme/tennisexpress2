@@ -4,6 +4,16 @@ const INTERVAL = 20000;
 
 $(document).ready(function () {
 
+    setImage();
+    countdown();
+    renderOddsLive();
+
+    if (isInplay()) {
+
+        setOddsTimer(INTERVAL);  // 30 seconds
+    }
+
+
     $('#buttonInplay').bind('click', function () {
         $("#img_status").attr("src", "")
         var url = '/0';
@@ -20,15 +30,7 @@ $(document).ready(function () {
     $('#buttonOdds').bind('click', function () {
         renderOddsLive();
     });
-
-    setImage();
-    countdown();
-    renderOddsLive();
-
-    if (isInplay()) {
-       
-        setOddsTimer(INTERVAL);  // 30 seconds
-    }
+    
 });
 
 function getColor() {
