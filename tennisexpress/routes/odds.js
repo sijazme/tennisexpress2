@@ -56,12 +56,13 @@ async function getOddsData(eventids) {
 router.post('/', async function (req, res) {
 
     const eventids = JSON.parse(JSON.stringify(req.body));
-    //console.log(eventids);
+
+    // console.log(eventids);
     if (eventids)
     {
         getOddsData(eventids).then(result =>
         {
-            //console.log(result);
+           // console.log(result);
             res.json(result);
         })
         .catch(error => {

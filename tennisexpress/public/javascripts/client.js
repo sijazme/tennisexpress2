@@ -85,27 +85,36 @@ function renderOddsLive() {
         var eventid = $(current).attr('eventid');
         eventids.push(parseInt(eventid));
     });
-       
 
-    $.ajax({
-        type: "POST",
-        url: "/odds",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(eventids),
-        success: function (result) {
-            if (result && result.length > 0) {                
-                bindOdds(result);
-            }
-            else {
-                print('POST failed : Too many requests to BETS API.');
-                clearInterval(refreshIntervalId);
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, error) {
-            print(error);
-        }
-    });
+
+    if (eventids.length <= 0) {
+
+        print('No events are inplay');
+        // no tennis events are inplay
+    }
+
+    else {
+            $.ajax({
+                type: "POST",
+                url: "/odds",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(eventids),
+                success: function (result) {
+                   // print(result);
+                    if (result && result.length > 0) {                
+                        bindOdds(result);
+                    }
+                    else {
+                        print('POST failed : Too many requests to BETS API.');
+                        clearInterval(refreshIntervalId);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, error) {
+                    print(error);
+                }
+            });
+    }
 
 }
 //function getRandomColor() {
@@ -148,36 +157,36 @@ function countdown() {
     var $timestamps = $(".timestamp");
 
     $timestamps.each(function (i, current) {
-        var timestamp = $(current).attr('id');
-        //var text = $(current).text();
+        var timestamp = $(current).attr('id');        
         var eventTime = timestamp; 
         var currentTime = Math.floor(Date.now() / 1000);
         var diffTime = eventTime - currentTime;
         var duration = moment.duration(diffTime * 1000, 'milliseconds');
-        var interval = 1000;
-        
-        $(current).text('');
-
-        if (duration) {
-            setInterval(function () {
-
-                duration = moment.duration(duration - interval, 'milliseconds');
-
-                var hours = duration.hours();
-                var minutes = duration.minutes();
-                var seconds = duration.seconds();
-
-                if (parseInt(hours) < 0 || parseInt(minutes) < 0) {
-                    
-                    $(current).text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
-                }
-                else {
-                    $(current).text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
-                }
-            }, interval);
-        }
-
+        setHours(duration, $(current));
     });
+}
+
+function setHours(duration, element) {
+
+    element.text('');
+    var interval = 1000; // 1 secondss
+    
+    setInterval(function () {
+
+        duration = moment.duration(duration - interval, 'milliseconds');
+
+        var hours = duration.hours();
+        var minutes = duration.minutes();
+        var seconds = duration.seconds();
+
+        if (parseInt(hours) < 0 || parseInt(minutes) < 0) {
+
+            element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
+        }
+        else {
+            element.text(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+        }
+    }, interval);
 }
 
 function print(str)
