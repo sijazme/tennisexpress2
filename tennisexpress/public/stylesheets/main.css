@@ -71,11 +71,15 @@ div {
 }
 
 .heading {
-    color: yellow;
-    font-size: 20px;
-    margin-left: 90px !important;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 80px !important;
     margin-bottom: 0px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Cascadia Code';
+    text-align: left;
+    background-color: lightgreen;
+    width:500px;
 }
 
 .odds {
@@ -115,7 +119,7 @@ div {
     font-family: 'Cascadia Code';
     margin-left: 90px !important;
     width:600px;
-    height: 30px;
+    height: 20px;
     margin-top:15px;
 }
 
