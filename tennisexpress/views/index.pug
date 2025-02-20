@@ -17,10 +17,10 @@ block content
     each match in key
      ul(id='matchlist')
      li
-     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p1)=match.player1
-      span(class='odds' id=match.eventid + '.1')=match.odd1
+     a( class='player' pid=match.pid1 target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p1)=match.player1
+     span(class='odds' id=match.eventid + '.1')=match.odd1
      li
-     a( target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p2)=match.player2
-      span(class='odds' id=match.eventid + '.2')=match.odd2      
+     a( class='player' pid=match.pid2 target='_blank' href='https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + match.p2)=match.player2
+     span(class='odds' id=match.eventid + '.2')=match.odd2
      li()
       p(id=match.timestamp class='timestamp' eventid=match.eventid)

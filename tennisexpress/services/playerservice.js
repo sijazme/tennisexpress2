@@ -5,7 +5,8 @@ JSON.truncate = require('json-truncate')
 
 // BETS API url
 
-const playerServiceURL = "https://api.b365api.com/v1/tennis/ranking?token=212610-grkv7alAClZ83h&type_id=3";
+const playerServiceURL1 = "https://api.b365api.com/v1/tennis/ranking?token=212610-grkv7alAClZ83h&type_id=1";
+const playerServiceURL2 = "https://api.b365api.com/v1/tennis/ranking?token=212610-grkv7alAClZ83h&type_id=3";
 
 var requestOptions = {
     method: 'GET',
@@ -17,34 +18,28 @@ var requestOptions = {
 var myHeaders = new Headers();
 myHeaders.append("token", "212610-grkv7alAClZ83h");
 
-async function getPlayersData() {
 
-    var arr = [];
-    var url = playerServiceURL;
+async function getPlayersData(typeid) {
+        
+    var url = typeid == 1 ? playerServiceURL1 : playerServiceURL2;
 
-    try {
-
-        console.log("### BEFORE RANKING DATA FETCH CALL ###");
-
+    try
+    {
         const response = await fetch(url, requestOptions);
 
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-        console.log("### AFTER RANKING DATA FETCH CALL ###");
-
+        
         const data = await response.json();
-        //console.log("### RANKING DATA ###" + data);
-
+        
         var r1 = jsonQuery('results', {
             data: data
         });
 
         if (r1 && r1.value) {
             var playerdata = r1.value;
-            //console.log(playerdata);
-            return playerdata;
-          
+            return playerdata;          
         }
     }
 
@@ -58,10 +53,24 @@ class PlayerService {
         this.getAllPlayers = this.getAllPlayers.bind(this);
     }
 
-    async getAllPlayers() {        
+
+    
+    async getAllPlayers() {
+
+        var playersArray = [];
+
         return new Promise((resolve) => {
-            var playerdata = getPlayersData();
-            resolve(playerdata);          
+            var playerdata1 = getPlayersData(1);
+            var playerdata2 = getPlayersData(2);
+
+            playersArray.push(playerdata1);
+            playersArray.push(playerdata2);
+
+            Promise.all(playersArray).then((values) => {
+                //console.log(values);
+                resolve(values);
+
+            });
         });
     }
 }

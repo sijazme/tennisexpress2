@@ -201,17 +201,45 @@ function print(str)
     }
 }
 
+function renderPlayer(data) {
+
+    for (var i = 0; i < data.length; i++) {
+        var current = data[i];
+        var playerid = parseInt(current.id);
+        var playername = current.name;
+        var playercountry = current.country;
+        var playerranking = current.ranking;
+
+
+        var $players = $(".player");
+
+        $players.each(function (i, current) {
+
+            var pid = parseInt($(current).attr('pid'));
+            var ptext = playername + ' (' + playercountry + ' | ' + playerranking + ')';
+            //console.log(ptext);
+            if (pid == playerid) {
+                $(current).text(ptext);
+            }
+        });
+    }
+}
 function getPlayersData() {
 
     $("#lastupdate").text(moment().format('YYYY-MM-DD HH:mm:ss'));
 
     $.getJSON("/players", function (data) {
-        // Process the JSON data here
-        for (var i = 0; i < data.length; i++) {
 
-            var current = data[i];
-            console.log(current);
-        }
+        var data0 = data[0];  // male player ranking data
+        var data1 = data[1]; // female player ranking data
+
+        //console.log(data0);
+
+        renderPlayer(data0);
+        renderPlayer(data1);
+
+        // Process the JSON data here
+       
 
     }).fail(function () {
         console.log("An error has occurred.");
