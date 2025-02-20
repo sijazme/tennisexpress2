@@ -201,16 +201,43 @@ function print(str)
     }
 }
 
-function renderPlayer(data) {
+async function renderFlag(cc, playerid) {
+
+    
+    var $flags = $(".flag");
+    var flagcountry = String(cc).toUpperCase();
+    var flagurl = 'https://flagsapi.com/' + flagcountry + '/flat/64.png';
+    var found = false;
+    var img = null;
+
+    if (flagcountry.length == 2) {
+        
+        $flags.each(function (i, current) {
+
+            var pid = parseInt($(current).attr('pid'));
+
+            if (pid == playerid)
+            {
+                console.log(flagurl);                
+                $(current).attr('src', flagurl);             
+            }
+        });
+    }
+
+}
+
+async function renderPlayer(data) {
 
     for (var i = 0; i < data.length; i++) {
+
         var current = data[i];
         var playerid = parseInt(current.id);
         var playername = current.name;
         var playercountry = current.country;
         var playerranking = current.ranking;
+        var playercc = current.cc;
 
-
+      
         var $players = $(".player");
 
         $players.each(function (i, current) {
@@ -219,12 +246,13 @@ function renderPlayer(data) {
             var ptext = playername + ' (' + playercountry + ' | ' + playerranking + ')';
             //console.log(ptext);
             if (pid == playerid) {
+                renderFlag(playercc, playerid);
                 $(current).text(ptext);
             }
         });
     }
 }
-function getPlayersData() {
+async function getPlayersData() {
 
     $("#lastupdate").text(moment().format('YYYY-MM-DD HH:mm:ss'));
 
@@ -233,7 +261,7 @@ function getPlayersData() {
         var data0 = data[0];  // male player ranking data
         var data1 = data[1]; // female player ranking data
 
-        //console.log(data0);
+        console.log(data);
 
         renderPlayer(data0);
         renderPlayer(data1);

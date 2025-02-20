@@ -174,6 +174,7 @@ async function getData(url, id) {
 function sortTournaments(jsonArray) {
     var wta = [];
     var atp = [];
+    var challenger = [];
     var others = [];
 
     for(var key in jsonArray)
@@ -189,12 +190,16 @@ function sortTournaments(jsonArray) {
             atp.push(obj);
         }
 
+        else if (obj.tournament.startsWith("Challenger")) {
+            atp.push(obj);
+        }
+
         else  {
             others.push(obj);
         }
     }
 
-    var arr = wta.concat(atp).concat(others);
+    var arr = wta.concat(atp).concat(challenger).concat(others);
 
     //console.log(arr);
 

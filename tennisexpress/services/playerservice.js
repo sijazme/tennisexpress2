@@ -52,9 +52,7 @@ class PlayerService {
     constructor() {
         this.getAllPlayers = this.getAllPlayers.bind(this);
     }
-
-
-    
+        
     async getAllPlayers() {
 
         var playersArray = [];

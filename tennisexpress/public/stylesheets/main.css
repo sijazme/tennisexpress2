@@ -10,6 +10,7 @@ a {
     color: white;
 }
 
+
 ul {
     border: 1px solid grey;
     
@@ -80,12 +81,25 @@ div {
 .odds {
     color: greenyellow;
     font-size: 14px;
-    margin-left: 18px;
-    font-weight: bold;
+    margin-left: 18px;    
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 20px !important;
 }
 
+.flag {
+    height: 22px;
+    width: 20px;
+    margin-right: 5px;
+    margin-left: 0px !important;
+}
+
+.player {
+    color: white;
+    margin-right: 5px;
+    margin-left: 0px !important;
+    font-family: Arial, Helvetica, sans-serif;    
+    font-weight:400;
+}
 
 .timestamp {
     color: orange;
