@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var routes2 = require('./routes/odds');
+var routes3 = require('./routes/players');
 
 var favicon = require('serve-favicon');
 var fetch = require('node-fetch');
@@ -33,8 +34,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 //app.use('/services', express.static('services'));
 
+
+app.use('/players', routes3);
 app.use('/odds', routes2);
 app.use('/', routes);
+
 
 
 

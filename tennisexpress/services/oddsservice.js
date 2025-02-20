@@ -99,8 +99,7 @@ class OddsService {
     async getOdds(id) {
 
         return new Promise((resolve) => {
-          
-            //console.log("ODDS targel url: " + url);
+            
             var oddsdata = getData(id); // tennis sportsId is 13
             resolve(oddsdata);
         });

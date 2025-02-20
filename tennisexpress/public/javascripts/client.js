@@ -7,6 +7,7 @@ $(document).ready(function () {
     setImage();
     countdown();
     renderOddsLive();
+    getPlayersData();
 
     if (isInplay()) {
 
@@ -118,14 +119,7 @@ function renderOddsLive() {
     }
 
 }
-//function getRandomColor() {
-//    var letters = '0123456789ABCDEF';
-//    var color = '#';
-//    for (var i = 0; i < 6; i++) {
-//        color += letters[Math.floor(Math.random() * 16)];
-//    }
-//    return color;
-//}
+
 function bindOdds(oddsdata) {
 
     var color = getColor();
@@ -205,4 +199,22 @@ function print(str)
         str1 = JSON.stringify(obj, null, 4); // (Optional) beautiful indented output.            
         $('#console').text(consoletext + ' ' + str1 + ' ');
     }
+}
+
+function getPlayersData() {
+
+    $("#lastupdate").text(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+    $.getJSON("/players", function (data) {
+        // Process the JSON data here
+        for (var i = 0; i < data.length; i++) {
+
+            var current = data[i];
+            console.log(current);
+        }
+
+    }).fail(function () {
+        console.log("An error has occurred.");
+    });
+
 }

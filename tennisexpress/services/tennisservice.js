@@ -105,7 +105,8 @@ async function addJsonLine(result, arr)
     var player2 = result.away.name;
     var p1 = playername(player1);
     var p2 = playername(player2);
-
+    var pid1 = result.home.id;
+    var pid2 = result.away.id;
     
 
     if (p1 && p2) {
@@ -120,6 +121,8 @@ async function addJsonLine(result, arr)
                 player2: player2,
                 p1: p1,
                 p2: p2,
+                pid1: pid1,
+                pid2: pid2,
                 odd1: '',
                 odd2: ''
         
