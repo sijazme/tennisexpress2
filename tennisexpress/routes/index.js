@@ -15,23 +15,24 @@ async function getTournaments() {
     const defaultId = 1;
 
     service1.getTournaments(defaultId).then(result => {
+
         tournaments = result;
+
         if (tournaments == null) {
             console.log("no tournaments found");
         }
-        else {
-
-            localizeEvents(tournaments);
+        else
+        {
+            saveEvents(tournaments);
         }
 
         return tournaments;
     })
     .catch(error => {
-        console.log(error);
-        //res.render("index", { 'tournaments': tournaments });
+        console.log(error);        
     });
 }
-async function localizeEvents(tournaments) {
+async function saveEvents(tournaments) {
 
     for (var key in tournaments) {
         var valueArray = tournaments[key];
@@ -80,7 +81,7 @@ async function render(res,id)
         }
         else {
 
-            localizeEvents(tournaments);
+            saveEvents(tournaments);
             res.render("index", { 'tournaments': tournaments });
         }
         
