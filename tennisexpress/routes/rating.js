@@ -23,9 +23,17 @@ router.post('/', async function (req, res) {
 
     try
     {
-        var rating = req.body;
-        var id = rating.id;
-        res.json(rating);   
+        var data = req.body;  // rating data passed in the request body from client.js        
+        var id = data[0].id;
+        var rating = data[0].rating;
+
+        Player.findOne({ id: id }).then(player => {
+            //console.log(player);
+            player.rating = rating;
+            player.save();
+            res.send(player);
+
+        });
     }
     catch (error)
     {

@@ -287,7 +287,7 @@ async function playerRatingUpdate() {
     rating.push({
         id: 58785,        
         rating: 1
-    });   
+    });
 
     $.ajax({
         type: "POST",
