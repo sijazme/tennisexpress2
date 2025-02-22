@@ -218,7 +218,7 @@ async function renderFlag(cc, playerid) {
 
             if (pid == playerid)
             {
-                console.log(flagurl);                
+                //console.log(flagurl);                
                 $(current).attr('src', flagurl);             
             }
         });
@@ -237,7 +237,8 @@ async function renderPlayer(data) {
         var playerranking = current.ranking;
         var playercc = current.cc;
 
-      
+        //console.log(current);
+
         var $players = $(".player");
 
         $players.each(function (i, current) {
@@ -261,7 +262,7 @@ async function getPlayersData() {
         var data0 = data[0];  // male player ranking data
         var data1 = data[1]; // female player ranking data
 
-        console.log(data);
+        //console.log(data);
 
         renderPlayer(data0);
         renderPlayer(data1);

@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var routes2 = require('./routes/odds');
 var routes3 = require('./routes/players');
+var routes4 = require('./routes/rating');
 
 var favicon = require('serve-favicon');
 var fetch = require('node-fetch');
@@ -35,6 +36,8 @@ app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist
 //app.use('/services', express.static('services'));
 
 
+
+app.use('/rating', routes4);
 app.use('/players', routes3);
 app.use('/odds', routes2);
 app.use('/', routes);
@@ -78,3 +81,29 @@ app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function () {
     debug('Express server listening on port ' + server.address().port);
 });
+
+// # MongoDB
+
+const mongoose = require("mongoose");
+
+const dbserver = 'dbuser:Ginger991@cluster1.r00nfer.mongodb.net';
+const database = 'tennisexpress';
+
+//const connstr = 'mongodb+srv://dbuser:Ginger991@cluster1.r00nfer.mongodb.net/';
+class Database {
+    constructor() {
+        this._connect();
+    }
+    _connect() {
+        mongoose
+            .connect(`mongodb+srv://${dbserver}/${database}`)
+            .then(() => {
+                console.log('Database connection successful');
+            })
+            .catch((err) => {
+                console.error('Database connection failed');
+            });
+    }
+}
+
+module.exports = new Database();
