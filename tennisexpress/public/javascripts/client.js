@@ -31,6 +31,10 @@ $(document).ready(function () {
     $('#buttonOdds').bind('click', function () {
         renderOddsLive();
     });
+
+    $('#buttonRating').bind('click', function () {
+        playerRatingUpdate();
+    });
     
 });
 
@@ -274,4 +278,28 @@ async function getPlayersData() {
         console.log("An error has occurred.");
     });
 
+}
+
+
+async function playerRatingUpdate() {
+    var rating = [];
+
+    rating.push({
+        id: 58785,        
+        rating: 1
+    });   
+
+    $.ajax({
+        type: "POST",
+        url: "/rating",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(rating),
+        success: function (result) {
+             print(result);           
+        },
+        error: function (XMLHttpRequest, textStatus, error) {
+            print(error);
+        }
+    });
 }
