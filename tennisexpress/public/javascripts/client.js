@@ -8,6 +8,8 @@ $(document).ready(function () {
     countdown();
     renderOddsLive();
     getPlayersData();
+    bindRatings();
+    addRatingChangeListener();
 
     if (isInplay()) {
 
@@ -281,20 +283,72 @@ async function getPlayersData() {
 }
 
 
-async function playerRatingUpdate() {
-    var rating = [];
+async function addRatingChangeListener() {
+    var $ratings = $('jsuites-rating');
 
-    rating.push({
-        id: 58785,        
-        rating: 1
+    $ratings.each(function (i, current) {
+        var pid = parseInt($(current).attr('id'));
+
+        // Add eventlistener for when the rating changes
+        current.addEventListener('onchange', function () {
+            var new_rating = parseInt(current.rating.options.value);            
+            var data = [];
+            data.push({
+                id: pid,
+                rating: new_rating
+            });
+            playerRatingUpdate(data);
+        })
     });
+}
+    
+// write this method to set player rating upon loading the page
+async function setPlayerRating(id, newrating) {
+
+    var $ratings = $('jsuites-rating');
+
+    $ratings.each(function (i, current) {
+
+        var playerid = current.id;
+        if (playerid == id) {
+
+          
+            //$(current).attr('value') = newrating;
+            console.log(current);
+            //const current_rating = parseInt($(current).attr('value'));
+            //console.log(current_rating);
+            //console.log('player ' + id + ' rating     old #' + current_rating + '      new #' + newrating);
+
+            
+
+        }
+    });
+}
+
+async function bindRatings() {
+
+    $.getJSON("/rating", function (data) {
+
+        const player_ratings = data;
+
+        for (var key in data) {
+            var player = data[key];
+
+            setPlayerRating(player.id, player.rating);
+        }
+    });
+}
+
+async function playerRatingUpdate(data) {
+
+   // alert('player ' + data[0].id + ' has new rating ' + data[0].rating);
 
     $.ajax({
         type: "POST",
         url: "/rating",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(rating),
+        data: JSON.stringify(data),
         success: function (result) {
              print(result);           
         },

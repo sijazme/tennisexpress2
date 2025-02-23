@@ -7,9 +7,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', async function (req, res) {
-
-    //console.log("GET player / rating router");
-    
+        
     try {
         const players = await Player.find({ });
         res.json(players);
@@ -26,13 +24,15 @@ router.post('/', async function (req, res) {
         var data = req.body;  // rating data passed in the request body from client.js        
         var id = data[0].id;
         var rating = data[0].rating;
-
+        //console.log("#ID === " + id);
         Player.findOne({ id: id }).then(player => {
-            //console.log(player);
-            player.rating = rating;
-            player.save();
-            res.send(player);
-
+           // console.log(player);
+            if (player) {
+                player.rating = rating;
+                player.save();
+               
+                res.send(player);                
+            }           
         });
     }
     catch (error)

@@ -6,7 +6,8 @@ const PlayerSchema = new mongoose.Schema({
     id: Number,
     name: String,
     ranking: Number,
-    rating: Number
+    rating: Number,
+    points: Number
 });
 
 const Player = mongoose.model("Player", PlayerSchema, "Player");
