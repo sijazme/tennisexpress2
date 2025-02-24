@@ -33,10 +33,11 @@ li:first-child {
     margin-top: 0;    
 }
 
-.img_status
-{
-    width: 200px;
-    height: 65px;
+.img_status {
+    width: 250px;
+    height: 80px;
+    margin-left: 60px !important;
+    
 }
 
 .img_banner {
@@ -70,10 +71,11 @@ div {
 }
 
 .update {
-    margin-left: 200px !important;
+    
     color: white;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
+    float:right;
 }
 
 .heading {
