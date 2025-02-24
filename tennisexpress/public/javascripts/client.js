@@ -47,7 +47,7 @@ function getColor() {
 
 function setImage() {     
 
-    $("#img_status").attr("src", "");
+    //$("#img_status").attr("src", "");
 
     if (isUpcoming()) {
         $("#img_status").attr("src", "../images/upcoming.jpg");
