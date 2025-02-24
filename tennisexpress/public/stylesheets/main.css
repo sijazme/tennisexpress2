@@ -37,7 +37,7 @@ li:first-child {
     width: 250px;
     height: 80px;
     margin-left: 60px !important;
-    
+    float:right;
 }
 
 .img_banner {
@@ -47,6 +47,13 @@ li:first-child {
     border: 1px solid black;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+
+.update {
+    color: white;
+    font-size: 12px;
+    font-family: Consolas;
+    float: right;
 }
 
 
@@ -70,13 +77,6 @@ div {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.update {
-    
-    color: white;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    float:right;
-}
 
 .heading {
     color: yellow;
