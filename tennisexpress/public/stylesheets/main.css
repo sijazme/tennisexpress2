@@ -33,8 +33,10 @@ li:first-child {
     margin-top: 0;    
 }
 
-.img_status {   
-    float:right;
+.img_status {
+    width: 250px;
+    height: 80px;    
+    float:left;
 }
 
 .img_banner {
