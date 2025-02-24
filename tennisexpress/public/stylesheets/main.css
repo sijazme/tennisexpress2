@@ -48,17 +48,26 @@ li:first-child {
     margin-top: 10px;
 }
 
-.update {
+.lastupdate {
     color: white;
     font-size: 12px;
-    font-family: Consolas;
-    float: right;
+    font-family: Consolas;    
+    margin-top: 10px;
+    margin-left: 0px !important;
 }
 
+.floatleft {
+    float: left;
+}
+
+.main {
+    margin-top:10px;
+   
+}
 
 p {
     font-family: Consolas;
-    font-size: 10px;    
+    font-size: 10px;
 }
 
 div {
