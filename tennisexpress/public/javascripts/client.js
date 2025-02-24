@@ -9,7 +9,9 @@ $(document).ready(function () {
     renderOddsLive();
     getPlayersData();
     bindRatings();
+
     addRatingChangeListener();
+      
 
     if (isInplay()) {
 
@@ -35,7 +37,7 @@ $(document).ready(function () {
     });
 
     $('#buttonRating').bind('click', function () {
-        playerRatingUpdate();
+        //playerRatingUpdate();
     });
     
 });
@@ -290,13 +292,14 @@ async function addRatingChangeListener() {
         var pid = parseInt($(current).attr('id'));
 
         // Add eventlistener for when the rating changes
-        current.addEventListener('onchange', function () {
+        current.addEventListener('click', function () {
             var new_rating = parseInt(current.rating.options.value);            
             var data = [];
             data.push({
                 id: pid,
                 rating: new_rating
             });
+            //console.log("CLICK event : " + JSON.stringify(data));
             playerRatingUpdate(data);
         })
     });
@@ -312,15 +315,11 @@ async function setPlayerRating(id, newrating) {
         var playerid = current.id;
         if (playerid == id) {
 
-          
-            //$(current).attr('value') = newrating;
-            console.log(current);
+            current.rating.setValue(newrating);
+            //console.log(current);
             //const current_rating = parseInt($(current).attr('value'));
             //console.log(current_rating);
             //console.log('player ' + id + ' rating     old #' + current_rating + '      new #' + newrating);
-
-            
-
         }
     });
 }
@@ -341,7 +340,7 @@ async function bindRatings() {
 
 async function playerRatingUpdate(data) {
 
-   // alert('player ' + data[0].id + ' has new rating ' + data[0].rating);
+    //alert('player ' + data[0].id + ' has new rating ' + data[0].rating);
 
     $.ajax({
         type: "POST",
@@ -350,7 +349,7 @@ async function playerRatingUpdate(data) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (result) {
-             print(result);           
+            // alert(result);           
         },
         error: function (XMLHttpRequest, textStatus, error) {
             print(error);
