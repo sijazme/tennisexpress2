@@ -33,7 +33,13 @@ li:first-child {
     margin-top: 0;    
 }
 
-img {
+.img_status
+{
+    width: 200px;
+    height: 65px;
+}
+
+.img_banner {
     height: 100px;
     width: 600px;
     margin-left: 70px;
