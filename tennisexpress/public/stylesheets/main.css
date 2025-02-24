@@ -33,10 +33,7 @@ li:first-child {
     margin-top: 0;    
 }
 
-.img_status {
-    width: 250px;
-    height: 80px;
-    margin-left: 60px !important;
+.img_status {   
     float:right;
 }
 
