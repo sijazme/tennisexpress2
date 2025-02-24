@@ -53,16 +53,16 @@ function setImage() {
     var imgurl2 = "../images/inplay.jpg";
     
     if (isUpcoming()) {
-        setTimeout(function () { $("#img_status").attr("src", imgurl1) }, 500);
+        setTimeout(function () { $("#img_status").attr("src", imgurl1) }, 200);
         //$("#img_status").attr("src", imgurl1);
     }
     else if (isInplay()) { // inplay
-        setTimeout(function () { $("#img_status").attr("src", imgurl2) }, 500);
+        setTimeout(function () { $("#img_status").attr("src", imgurl2) }, 200);
         //$("#img_status").attr("src", imgurl2);
     }
     else {
         //$("#img_status").attr("src", imgurl1);
-        setTimeout(function () { $("#img_status").attr("src", imgurl1) }, 500);
+        setTimeout(function () { $("#img_status").attr("src", imgurl1) }, 200);
     }
 }
 function isUpcoming() {
