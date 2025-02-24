@@ -26,14 +26,12 @@ router.post('/', async function (req, res) {
         var rating = data[0].rating;
 
         // Find One is not working!!!
-
         for await (const doc of Player.find()) {
 
-            if (doc.id == id)
-            {   //console.log(doc);
+            if (doc.id == id) {   //console.log(doc);
                 doc.rating = rating;
                 doc.save();
-                res.send(doc);                
+                res.send(doc);
             }
         }        
     }

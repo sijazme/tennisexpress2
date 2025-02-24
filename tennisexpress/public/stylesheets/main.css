@@ -148,3 +148,27 @@ div {
     height: auto;
     margin-left: 0px;
 }
+
+.rating {
+    display: inline-block;
+    font-size: 30px;
+    color:yellow;
+}
+
+
+.tablediv {
+    width: 100%;
+    display: table;
+}
+.topdiv {
+    display: table-row;
+}
+
+.leftdiv {
+    width: 600px;
+    display: table-cell;
+}
+
+.rightdiv {
+    display: table-cell;
+}
