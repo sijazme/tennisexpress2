@@ -9,15 +9,11 @@ $(document).ready(function () {
     renderOddsLive();
     getPlayersData();
     bindRatings();
-
     addRatingChangeListener();
-      
 
     if (isInplay()) {
-
         setOddsTimer(INTERVAL);  // 30 seconds
     }
-
 
     $('#buttonInplay').bind('click', function () {
         $("#img_status").attr("src", "")
@@ -269,15 +265,9 @@ async function getPlayersData() {
 
         var data0 = data[0];  // male player ranking data
         var data1 = data[1]; // female player ranking data
-
-        //console.log(data);
-
         renderPlayer(data0);
         renderPlayer(data1);
-
         // Process the JSON data here
-       
-
     }).fail(function () {
         console.log("An error has occurred.");
     });
@@ -311,15 +301,9 @@ async function setPlayerRating(id, newrating) {
     var $ratings = $('jsuites-rating');
 
     $ratings.each(function (i, current) {
-
         var playerid = current.id;
         if (playerid == id) {
-
             current.rating.setValue(newrating);
-            //console.log(current);
-            //const current_rating = parseInt($(current).attr('value'));
-            //console.log(current_rating);
-            //console.log('player ' + id + ' rating     old #' + current_rating + '      new #' + newrating);
         }
     });
 }
