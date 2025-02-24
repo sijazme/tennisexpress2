@@ -42,10 +42,10 @@ li:first-child {
 .img_banner {
     height: 100px;
     width: 600px;
-    margin-left: 70px;
+    margin-left: 0px;
     border: 1px solid black;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .lastupdate {
