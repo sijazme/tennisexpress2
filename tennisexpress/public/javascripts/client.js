@@ -38,7 +38,7 @@ $(document).ready(function () {
 });
 
 function getColor() {
-    const colors = ["#FF66FF", "#FF6633", "#FF3300", "#66CC00", "#66FF00", "#FFCC00", "#FF3300", "#9900FF"];
+    const colors = ["#66FF00", "#FFCC00", "#00EAFF"];
     var max = colors.length;
     var index = Math.random() * max | 0;
     return colors[index];
