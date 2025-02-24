@@ -15,14 +15,13 @@ $(document).ready(function () {
         setOddsTimer(INTERVAL);  // 30 seconds
     }
 
-    $('#buttonInplay').bind('click', function () {
-        $("#img_status").attr("src", "")
+    $('#buttonInplay').bind('click', function () {        
         var url = '/0';
         document.location.href = url;
     });
 
     $('#buttonUpcoming').bind('click', function () {
-        $("#img_status").attr("src", "")
+        
         var url = '/1';
         document.location.href = url;     
 
@@ -47,16 +46,20 @@ function getColor() {
 
 function setImage() {     
 
-    //$("#img_status").attr("src", "");
-
+    var imgurl1 = "../images/upcoming.jpg";
+    var imgurl2 = "../images/inplay.jpg";
+    
     if (isUpcoming()) {
-        $("#img_status").attr("src", "../images/upcoming.jpg");
+        setTimeout(function () { $("#img_status").attr("src", imgurl1) }, 500);
+        //$("#img_status").attr("src", imgurl1);
     }
     else if (isInplay()) { // inplay
-        $("#img_status").attr("src", "../images/inplay.jpg");        
+        setTimeout(function () { $("#img_status").attr("src", imgurl2) }, 500);
+        //$("#img_status").attr("src", imgurl2);
     }
     else {
-        $("#img_status").attr("src", "../images/upcoming.jpg");
+        //$("#img_status").attr("src", imgurl1);
+        setTimeout(function () { $("#img_status").attr("src", imgurl1) }, 500);
     }
 }
 function isUpcoming() {

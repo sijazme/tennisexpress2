@@ -56,6 +56,11 @@ li:first-child {
     margin-left: 0px !important;
 }
 
+.p_status
+{
+    font-size:25px;
+}
+
 .floatleft {
     float: left;
 }
