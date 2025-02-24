@@ -12,7 +12,10 @@ $(document).ready(function () {
     addRatingChangeListener();
 
     if (isInplay()) {
-        setOddsTimer(INTERVAL);  // 30 seconds
+        if (refreshIntervalId > 0) {
+            clearInterval(refreshIntervalId);
+        }
+        setOddsTimer(INTERVAL);  // 20 seconds
     }
 
     $('#buttonInplay').bind('click', function () {        
@@ -38,7 +41,7 @@ $(document).ready(function () {
 });
 
 function getColor() {
-    const colors = ["#66FF00", "#FFCC00", "#00EAFF"];
+    const colors = ["#66FF00", "#FFCC00", "#F600FF"];
     var max = colors.length;
     var index = Math.random() * max | 0;
     return colors[index];
