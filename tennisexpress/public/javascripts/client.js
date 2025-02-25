@@ -4,6 +4,7 @@ const INTERVAL = 20000;
 
 $(document).ready(function () {
 
+    setRefreshTimer();
     setImage();
     countdown();
     renderOddsLive();
@@ -40,6 +41,12 @@ $(document).ready(function () {
     
 });
 
+function setRefreshTimer() {
+
+    setInterval(function () {
+        window.location.reload();
+    }, 5 * 60000); // 5 minutes
+}
 function getColor() {
     const colors = ["#66FF00", "#FFCC00", "#F600FF"];
     var max = colors.length;
