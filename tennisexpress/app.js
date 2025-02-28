@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var routes2 = require('./routes/odds');
 var routes3 = require('./routes/players');
 var routes4 = require('./routes/rating');
+var routes5 = require('./routes/home');
 
 var favicon = require('serve-favicon');
 var fetch = require('node-fetch');
@@ -36,7 +37,7 @@ app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist
 //app.use('/services', express.static('services'));
 
 
-
+app.use('/home', routes5);
 app.use('/rating', routes4);
 app.use('/players', routes3);
 app.use('/odds', routes2);

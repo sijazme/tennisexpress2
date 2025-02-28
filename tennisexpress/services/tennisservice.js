@@ -34,12 +34,12 @@ var tournamentTypeOK = function (tournament) {
 };
 function compareFn(a, b) {
 
-    var l1 = parseInt(a["leagueid"]);
-    var l2 = parseInt(b["leagueid"]);
+    var l1 = parseInt(a["timestamp"]);
+    var l2 = parseInt(b["timestamp"]);
 
     if (l1 < l2) {        
         return -1;
-    } else if (l1 > l2) {        
+    } else if (l1 < l2) {        
         return 1;
     }
     return 0;
@@ -191,7 +191,7 @@ function sortTournaments(jsonArray) {
         }
 
         else if (obj.tournament.startsWith("Challenger")) {
-            atp.push(obj);
+            challenger.push(obj);
         }
 
         else  {

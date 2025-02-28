@@ -4,11 +4,11 @@ const INTERVAL = 20000;
 
 $(document).ready(function () {
 
-    setRefreshTimer();
-    setImage();
-    countdown();
-    renderOddsLive();
     getPlayersData();
+    setRefreshTimer();
+    setImages();
+    startCountdownTimer();
+    renderOddsLive();    
     bindRatings();
     addRatingChangeListener();
 
@@ -54,7 +54,7 @@ function getColor() {
     return colors[index];
 }
 
-function setImage() {     
+function setImages() {     
 
     var imgurl1 = "../images/upcoming.jpg";
     var imgurl2 = "../images/inplay.jpg";
@@ -165,7 +165,7 @@ function bindOdds(oddsdata) {
         });
     };
 }
-function countdown() {
+function startCountdownTimer() {
     var $timestamps = $(".timestamp");
 
     $timestamps.each(function (i, current) {

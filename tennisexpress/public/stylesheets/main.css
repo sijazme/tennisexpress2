@@ -33,6 +33,9 @@ li:first-child {
     margin-top: 0;    
 }
 
+.home{
+    background-color: black;
+}
 .img_status {
     width: 250px;
     height: 80px;    
