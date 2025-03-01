@@ -109,7 +109,7 @@ div {
 
 .odds {
     color: greenyellow;
-    font-size: 16px;
+    font-size: 14px;
     margin-left: 10px;
     font-family: 'Cascadia Code';    
 }
@@ -118,6 +118,8 @@ div {
     
     margin-right: 5px;
     margin-left: 0px !important;
+    max-height: 28px;
+    max-width: 30px;
 }
 
 .player {
@@ -125,8 +127,7 @@ div {
     margin-right: 5px;
     margin-left: 5px !important;
     font-family: 'Cascadia Code';
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .timestamp {
