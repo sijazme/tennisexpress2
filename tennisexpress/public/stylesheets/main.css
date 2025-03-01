@@ -109,10 +109,9 @@ div {
 
 .odds {
     color: greenyellow;
-    font-size: 14px;
-    margin-left: 18px;    
-    font-family: Arial, Helvetica, sans-serif;
-    margin-left: 20px !important;
+    font-size: 16px;
+    margin-left: 10px;
+    font-family: 'Cascadia Code';    
 }
 
 .flag {
@@ -124,9 +123,10 @@ div {
 .player {
     color: white;
     margin-right: 5px;
-    margin-left: 0px !important;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
+    margin-left: 5px !important;
+    font-family: 'Cascadia Code';
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .timestamp {
