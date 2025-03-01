@@ -223,7 +223,7 @@ async function renderFlag(cc, playerid) {
     
     var $flags = $(".flag");
     var flagcountry = String(cc).toUpperCase();
-    var flagurl = 'https://flagsapi.com/' + flagcountry + '/flat/64.png';
+    var flagurl = 'https://flagsapi.com/' + flagcountry + '/flat/32.png';
     var found = false;
     var img = null;
 

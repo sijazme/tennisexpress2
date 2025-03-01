@@ -43,8 +43,8 @@ li:first-child {
 }
 
 .img_banner {
-    height: 100px;
-    width: 600px;
+    height: 140px;
+    width: 1000px;
     margin-left: 0px;
     border: 1px solid black;
     margin-bottom: 10px;
@@ -114,8 +114,7 @@ div {
 }
 
 .flag {
-    height: 13px;
-    width: 22px;
+    
     margin-right: 5px;
     margin-left: 0px !important;
 }
