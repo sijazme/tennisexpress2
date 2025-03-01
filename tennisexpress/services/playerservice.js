@@ -65,23 +65,7 @@ class PlayerService {
             playersArray.push(playerdata2);
 
             Promise.all(playersArray).then((values) => {
-                //console.log();
-
-                //var fs = require('fs');
-                ////fs.writeFile('males.json', values[0], 'utf8', callback);
-
-                //fs.writeFile("males.json", JSON.stringify(values[0]), 'utf8', function (err) {
-                //    if (err)
-                //        throw err;
-                //    console.log('DATA SAVE: male data save complete');
-                //});
-
-                //fs.writeFile("females.json", JSON.stringify(values[1]), 'utf8', function (err) {
-                //    if (err)
-                //        throw err;
-                //    console.log('DATA SAVE: female data save complete');
-                //});
-
+          
                 resolve(values);
 
             });

@@ -48,7 +48,7 @@ function setRefreshTimer() {
     }, 5 * 60000); // 5 minutes
 }
 function getColor() {
-    const colors = ["#66FF00", "#FFCC00", "#F600FF"];
+    const colors = ["#66FF00", "#FFCC00", "#59dbe6"];
     var max = colors.length;
     var index = Math.random() * max | 0;
     return colors[index];
@@ -182,23 +182,26 @@ function setHours(duration, element) {
 
     element.text('');
     var interval = 1000; // 1 secondss
-    
-    setInterval(function () {
 
-        duration = moment.duration(duration - interval, 'milliseconds');
+    if (duration)
+    {
+        setInterval(function () {
 
-        var hours = duration.hours();
-        var minutes = duration.minutes();
-        var seconds = duration.seconds();
+            var dur = moment.duration(duration - interval, 'milliseconds');
 
-        if (parseInt(hours) < 0 || parseInt(minutes) < 0 || parseInt(seconds) < 0) {
+            var hours = dur.hours();
+            var minutes = dur.minutes();
+            var seconds = dur.seconds();
 
-            element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
-        }
-        else {
-            element.text(hours + ":" + minutes + ":" + seconds);
-        }
-    }, interval);
+            if (parseInt(hours) < 0 || parseInt(minutes) < 0 || parseInt(seconds) < 0) {
+
+                element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
+            }
+            else {
+                element.text(hours + ":" + minutes + ":" + seconds);
+            }
+        }, interval);
+    }
 }
 
 function print(str)
@@ -245,29 +248,31 @@ async function renderFlag(cc, playerid) {
 
 async function renderPlayer(data) {
 
-    for (var i = 0; i < data.length; i++) {
+    if (data != null) { 
+        for (var i = 0; i < data.length; i++) {
 
-        var current = data[i];
-        var playerid = parseInt(current.id);
-        var playername = current.name;
-        var playercountry = current.country;
-        var playerranking = current.ranking;
-        var playercc = current.cc;
+            var current = data[i];
+            var playerid = parseInt(current.id);
+            var playername = current.name;
+            var playercountry = current.country;
+            var playerranking = current.ranking;
+            var playercc = current.cc;
 
-        //console.log(current);
+            //console.log(current);
 
-        var $players = $(".player");
+            var $players = $(".player");
 
-        $players.each(function (i, current) {
+            $players.each(function (i, current) {
 
-            var pid = parseInt($(current).attr('pid'));
-            var ptext = playername + ' (' + playercountry + ' | ' + playerranking + ')';
-            //console.log(ptext);
-            if (pid == playerid) {
-                renderFlag(playercc, playerid);
-                $(current).text(ptext);
-            }
-        });
+                var pid = parseInt($(current).attr('pid'));
+                var ptext = playername + ' (' + playercountry + ' | ' + playerranking + ')';
+                //console.log(ptext);
+                if (pid == playerid) {
+                    renderFlag(playercc, playerid);
+                    $(current).text(ptext);
+                }
+            });
+        }
     }
 }
 async function getPlayersData() {
