@@ -80,6 +80,13 @@ var playername = function (name) {
     return firstWords.join('');
 };
 
+function titleCase(s) {
+    return s.toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
 async function addJsonLine(result, arr)
 {
     var eventid = parseInt(result.id);
@@ -101,8 +108,8 @@ async function addJsonLine(result, arr)
 
     
     var tournament = result.league.name;
-    var player1 = result.home.name;
-    var player2 = result.away.name;
+    var player1 = titleCase(result.home.name);
+    var player2 = titleCase(result.away.name);
     var p1 = playername(player1);
     var p2 = playername(player2);
     var pid1 = result.home.id;
