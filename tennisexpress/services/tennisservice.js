@@ -50,7 +50,7 @@ async function groupData (arr) {
     var groupJson = [];
 
     if (arr && arr.length > 0) {
-        arr = arr.sort(compareFn);       
+        //arr = arr.sort(compareFn);       
         groupJson = groupBy(arr, 'tournament');
         
     }
