@@ -48,7 +48,7 @@ function setRefreshTimer() {
     }, 5 * 60000); // 5 minutes
 }
 function getColor() {
-    const colors = ["#66FF00", "#FFCC00", "#59dbe6"];
+    const colors = ["#66FF00", "#FFCC00", "#ff3300"];
     var max = colors.length;
     var index = Math.random() * max | 0;
     return colors[index];
