@@ -90,8 +90,7 @@ function titleCase(s) {
 async function addJsonLine(result, arr)
 {
     var eventid = parseInt(result.id);
-
-    // add time
+        // add time
     var moment = require('moment');
     var timestamp = parseInt(result.time);
     var momentStyle = moment.unix(timestamp);
