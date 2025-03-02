@@ -45,7 +45,7 @@ function setRefreshTimer() {
 
     setInterval(function () {
         window.location.reload();
-    }, 5 * 60000); // 5 minutes
+    }, 20 * 60000); // 20 minutes
 }
 function getColor() {
     const colors = ["#66FF00", "#FFCC00", "#ff3300"];
