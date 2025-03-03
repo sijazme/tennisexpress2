@@ -183,25 +183,22 @@ function setHours(duration, element) {
     element.text('');
     var interval = 1000; // 1 secondss
 
-    if (duration)
-    {
-        setInterval(function () {
+    setInterval(function () {
 
-            var dur = moment.duration(duration - interval, 'milliseconds');
+        duration = moment.duration(duration - interval, 'milliseconds');
 
-            var hours = dur.hours();
-            var minutes = dur.minutes();
-            var seconds = dur.seconds();
+        var hours = duration.hours();
+        var minutes = duration.minutes();
+        var seconds = duration.seconds();
 
-            if (parseInt(hours) < 0 || parseInt(minutes) < 0 || parseInt(seconds) < 0) {
+        if (parseInt(hours) < 0 || parseInt(minutes) < 0 || parseInt(seconds) < 0) {
 
-                element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
-            }
-            else {
-                element.text(hours + ":" + minutes + ":" + seconds);
-            }
-        }, interval);
-    }
+            element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
+        }
+        else {
+            element.text(hours + ":" + minutes + ":" + seconds);
+        }
+    }, interval);
 }
 
 function print(str)
