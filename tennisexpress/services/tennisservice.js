@@ -115,25 +115,22 @@ async function addJsonLine(result, arr)
     var pid2 = result.away.id;
     
 
-    if (p1 && p2) {
+    arr.push({
+        eventid: eventid,
+        time: timeStartformatted,
+        timestamp: timestamp,
+        countdown: countdown,
+        tournament: tournament,
+        player1: player1,
+        player2: player2,
+        p1: p1,
+        p2: p2,
+        pid1: pid1,
+        pid2: pid2,
+        odd1: '',
+        odd2: ''
 
-            arr.push({
-                eventid: eventid,
-                time: timeStartformatted,
-                timestamp: timestamp,
-                countdown: countdown,
-                tournament: tournament,
-                player1: player1,
-                player2: player2,
-                p1: p1,
-                p2: p2,
-                pid1: pid1,
-                pid2: pid2,
-                odd1: '',
-                odd2: ''
-        
-            });   
-    }
+    });
 }
 
 async function getData(url, id) {
