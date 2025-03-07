@@ -1,7 +1,13 @@
 $(document).ready(function () {
 
-    //alert('home page loaded');
     renderHtml();
+
+    $.getScript("/javascripts/client.js", function () {
+        alert('client script loaded');
+        initPage();
+
+    });
+    
 });
 
 

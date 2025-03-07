@@ -115,11 +115,10 @@ div {
 }
 
 .flag {
-    
-    margin-right: 5px;
+    margin-right: 3px;
     margin-left: 0px !important;
-    max-height: 28px;
-    max-width: 30px;
+    max-height: 25px;
+    max-width: 32px;
 }
 
 .player {
@@ -197,4 +196,14 @@ div {
 
 .rightdiv {
     display: table-cell;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }

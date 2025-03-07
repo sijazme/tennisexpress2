@@ -3,12 +3,16 @@ var refreshIntervalId = 0;
 const INTERVAL = 20000;
 
 $(document).ready(function () {
+    initPage();
+});
+
+function initPage() {
 
     getPlayersData();
     setRefreshTimer();
     setImages();
     startCountdownTimer();
-    renderOddsLive();    
+    renderOddsLive();
     bindRatings();
     addRatingChangeListener();
 
@@ -19,15 +23,15 @@ $(document).ready(function () {
         setOddsTimer(INTERVAL);  // 20 seconds
     }
 
-    $('#buttonInplay').bind('click', function () {        
+    $('#buttonInplay').bind('click', function () {
         var url = '/0';
         document.location.href = url;
     });
 
     $('#buttonUpcoming').bind('click', function () {
-        
+
         var url = '/1';
-        document.location.href = url;     
+        document.location.href = url;
 
     });
 
@@ -38,8 +42,7 @@ $(document).ready(function () {
     $('#buttonRating').bind('click', function () {
         //playerRatingUpdate();
     });
-    
-});
+}
 
 function setRefreshTimer() {
 
@@ -187,15 +190,21 @@ function setHours(duration, element) {
 
         duration = moment.duration(duration - interval, 'milliseconds');
 
-        var hours = duration.hours();
-        var minutes = duration.minutes();
-        var seconds = duration.seconds();
+        var hours = parseInt(duration.hours());
+        var minutes = parseInt(duration.minutes());
+        var seconds = parseInt(duration.seconds());
 
-        if (parseInt(hours) < 0 || parseInt(minutes) < 0 || parseInt(seconds) < 0) {
+        if (hours < 0 || minutes < 0 || seconds < 0) {
 
             element.text(Math.abs(hours) + ":" + Math.abs(minutes) + ":" + Math.abs(seconds));
         }
         else {
+
+            if (minutes < 10) {
+
+                element.parent().addClass('blink_me');
+            }
+
             element.text(hours + ":" + minutes + ":" + seconds);
         }
     }, interval);
