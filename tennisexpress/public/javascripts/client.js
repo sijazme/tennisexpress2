@@ -200,7 +200,7 @@ function setHours(duration, element) {
         }
         else {
 
-            if (minutes < 10) {
+            if (hours < 1 && minutes < 10) {
 
                 element.parent().addClass('blink_me');
             }
