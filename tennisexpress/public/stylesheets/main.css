@@ -1,6 +1,6 @@
 
 body {
-    font-family: Verdana;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 11px;
     color:white;
     background-color: black;
@@ -19,7 +19,7 @@ ul {
 }
 
 li {
-    font-family: unset;
+    
     font-size: 16px;
     font-weight: 700;
     margin-top: 0px;
